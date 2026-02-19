@@ -1,61 +1,73 @@
 import requests
 import pandas as pd
-from datetime import datetime, timedelta
-import pytz
+import time
+import logging
+import json
 
-def fetch_polymarket_nba_events():
-    """Fetches NBA events from Polymarket Gamma API."""
+logger = logging.getLogger(__name__)
+
+def fetch_polymarket_history_paginated(use_start_date_for_timestamp: bool = True):
+    """
+    Fetches historical NBA data from the Gamma API while respecting rate limits.
+
+    Args:
+        use_start_date_for_timestamp: If True, use startDate (market open, before game)
+            for temporal alignment with T-minus-1-hour snapshots. If False, use endDate
+            (game start/close). startDate is required for merge_asof(direction='backward').
+    """
+    logger.info("Starting production Polymarket Gamma API extraction...")
     url = "https://gamma-api.polymarket.com/events"
-    # Example parameters - you will need to adjust based on exact Gamma API specs for NBA filtering
-    params = {"limit": 100, "active": "true", "tag": "NBA"} 
-    
-    response = requests.get(url, params=params)
-    response.raise_for_status()
-    data = response.json()
-    
-    events = []
-    for item in data:
-        # Extracting required fields
-        event_id = item.get("id")
-        event_name = item.get("title")
-        timestamp = item.get("endDate") # Or relevant timestamp field
-        
-        # In a real scenario, you'd iterate through the markets inside the event to get the exact team probabilities
-        # Assuming we extract a representative market price here:
-        prob = 0.50 # Placeholder for parsed probability
-        
-        events.append({
-            "event_id": event_id,
-            "event_name": event_name,
-            "timestamp": timestamp,
-            "polymarket_prob": prob
-        })
-        
-    return pd.DataFrame(events)
+    all_events = []
+    limit = 100
+    offset = 0
 
-def filter_t_minus_one_hour(df, timestamp_col='timestamp'):
-    """Filters events to isolate the T-minus 1 hour snapshot."""
-    # Convert string timestamps to datetime objects
-    df[timestamp_col] = pd.to_datetime(df[timestamp_col])
-    
-    # Calculate the snapshot target (1 hour before tip-off)
-    df['target_snapshot'] = df[timestamp_col] - timedelta(hours=1)
-    
-    # In a full historical pipeline, you would query the API/DB closest to this 'target_snapshot' time.
-    # For now, we return the annotated dataframe.
-    return df
+    MIN_YEAR = 2022
 
-def load_and_standardize_sportsbook(filepath):
-    """Loads Kaggle CSV and standardizes the schema."""
-    # Load public historical moneyline datasets from Kaggle [cite: 9]
-    df = pd.read_csv(filepath)
-    
-    # Standardize to match API output schema
-    df = df.rename(columns={
-        'Date': 'timestamp',
-        'Home Team': 'home_team',
-        'Away Team': 'away_team',
-        'Home Odds': 'home_odds',
-        'Away Odds': 'away_odds'
-    })
-    return df
+    while True:
+        try:
+            params = {"limit": limit, "offset": offset, "tag": "NBA", "closed": "true"}
+            response = requests.get(url, params=params)
+            response.raise_for_status()
+            data = response.json()
+            
+            if not data:
+                break 
+                
+            # Check the date of the first item on the page
+            last_event_date = pd.to_datetime(data[-1].get("endDate"))
+            
+            # If the entire page is older than our target year, STOP.
+            if last_event_date.year < MIN_YEAR:
+                logger.info(f"Reached {last_event_date.year}. Stopping extraction as per 2022 boundary.")
+                break
+
+            for item in data:
+                # Still check individual items to be safe
+                event_date = pd.to_datetime(item.get("endDate"), utc=True)
+                if event_date.year >= MIN_YEAR:
+
+                    markets = item.get("markets", [])
+                    prob = 0.50 
+                    if markets and "outcomePrices" in markets[0]:
+                        try:
+                            prices = json.loads(markets[0]["outcomePrices"])
+                            prob = float(prices[0]) if prices else 0.50
+                        except (json.JSONDecodeError, ValueError, IndexError):
+                            pass
+
+                    all_events.append({
+                        "event_id": item.get("id"),
+                        "poly_event_name": item.get("title"),
+                        "timestamp": event_date,
+                        "polymarket_prob": prob
+                    })
+            
+            logger.info(f"Fetched offset {offset} (Date: {last_event_date.date()})")
+            offset += limit
+            time.sleep(0.3) # Slightly faster sleep since we're being targeted
+            
+        except Exception as e:
+            logger.error(f"Error at offset {offset}: {e}")
+            break
+            
+    return pd.DataFrame(all_events)

@@ -1,0 +1,45 @@
+event_id,poly_event_name,timestamp,polymarket_prob,matched_sb_event,matching_score
+80525,Raptors vs. 76ers,2025-11-13 15:06:41.422666+00:00,1.0,tor vs phi,100.0
+98707,Nets vs. Mavericks,2025-12-06 15:02:42.846363+00:00,0.5,bkn vs dal,100.0
+56697,Rockets vs. Pelicans,2025-10-08 22:56:00.296592+00:00,1.0,hou vs no,100.0
+94868,Thunder vs. Jazz,2025-12-01 15:05:34.080896+00:00,0.0,okc vs utah,92.06349206349206
+128962,Jazz vs. Warriors,2025-12-28 15:12:26.460232+00:00,0.0,gs vs utah,92.06349206349206
+189439,Cavaliers vs. Trail Blazers,2026-01-26 15:03:51.599580+00:00,1.0,por vs cle,100.0
+87594,Suns vs. Thunder,2025-11-22 15:11:10.366764+00:00,0.0,okc vs phx,100.0
+194570,Heat vs. Celtics,2026-01-31 15:05:35.989239+00:00,0.0,bos vs mia,100.0
+128951,Hawks vs. Raptors,2025-12-28 15:02:44.553717+00:00,1.0,atl vs tor,100.0
+117354,Celtics vs. Trail Blazers,2025-12-22 15:13:03.119724+00:00,0.0,bos vs por,100.0
+187843,Hawks vs. Pacers,2026-01-25 15:05:05.338524+00:00,1.0,atl vs ind,100.0
+65661,Kings vs. Bucks,2025-10-26 14:03:54.876525+00:00,1.0,sac vs mil,100.0
+140938,Bucks vs. Lakers,2026-01-03 15:06:04.241696+00:00,0.0,mil vs lal,100.0
+62541,Clippers vs. Jazz,2025-10-20 19:48:15.391884+00:00,0.0,utah vs lac,91.80327868852459
+165958,Cavaliers vs. Hornets,2026-01-15 15:07:06.617791+00:00,1.0,cha vs cle,100.0
+107510,Magic vs. Trail Blazers,2025-12-17 15:07:25.734196+00:00,1.0,por vs orl,100.0
+119323,Magic vs. Raptors,2025-12-23 15:04:13.389912+00:00,0.0,tor vs orl,100.0
+115460,Cavaliers vs. Rockets,2025-12-21 15:04:03.705033+00:00,0.0,hou vs cle,100.0
+191329,Magic vs. Thunder,2026-01-28 15:05:10.270647+00:00,0.0,orl vs okc,100.0
+172321,Wizards vs. Hornets,2026-01-18 15:03:51.175004+00:00,0.0,cha vs wsh,100.0
+62539,Pelicans vs. Grizzlies,2025-10-20 19:48:14.308725+00:00,0.0,mem vs no,100.0
+67733,Magic vs. Hawks,2025-10-29 14:11:37.019211+00:00,0.0,orl vs atl,100.0
+71715,Bulls vs. Cavaliers,2025-11-03 15:07:07.868438+00:00,0.0,cle vs chi,100.0
+82090,Pelicans vs. Mavericks,2025-11-15 15:07:27.185393+00:00,1.0,no vs dal,100.0
+131055,Nuggets vs. Nets,2025-12-29 15:07:20.000961+00:00,1.0,den vs bkn,100.0
+56688,Nuggets vs. Clippers,2025-10-08 22:56:00.268814+00:00,1.0,lac vs den,100.0
+82079,Nets vs. Celtics,2025-11-15 15:07:26.209563+00:00,0.0,bkn vs bos,100.0
+82815,Wizards vs. Bulls,2025-11-16 15:06:24.467123+00:00,0.0,wsh vs chi,100.0
+135048,Cavaliers vs. Pacers,2025-12-31 15:02:08.358282+00:00,0.0,ind vs cle,100.0
+138795,Heat vs. Bulls,2026-01-02 15:06:23.173071+00:00,0.0,mia vs chi,100.0
+56218,Celtics vs. Raptors,2025-10-07 23:07:41.141533+00:00,0.0,tor vs bos,100.0
+82804,Clippers vs. Hornets,2025-11-16 15:06:24.441948+00:00,1.0,cha vs lac,100.0
+62555,Warriors vs. Trail Blazers,2025-10-20 19:48:09.806440+00:00,0.0,por vs gs,100.0
+128955,Trail Blazers vs. Spurs,2025-12-28 15:12:26.454618+00:00,0.0,sa vs por,100.0
+89234,Thunder vs. Trail Blazers,2025-11-24 15:05:13.183507+00:00,1.0,por vs okc,100.0
+65149,Knicks vs. Bulls,2025-10-25 14:02:31.936150+00:00,0.0,ny vs chi,100.0
+101622,Knicks vs. Magic,2025-12-10 15:10:56.268879+00:00,1.0,ny vs orl,100.0
+172319,Warriors vs. Timberwolves,2026-01-18 15:03:51.159164+00:00,1.0,min vs gs,100.0
+128958,Rockets vs. Mavericks,2025-12-28 15:12:26.462614+00:00,0.0,dal vs hou,100.0
+64034,Magic vs. Pistons,2025-10-23 14:06:11.743268+00:00,0.0,orl vs det,100.0
+93313,Trail Blazers vs. Pistons,2025-11-29 15:07:22.073171+00:00,0.0,por vs det,100.0
+170320,Suns vs. Hawks,2026-01-17 15:01:54.268764+00:00,0.0,atl vs phx,100.0
+170341,Pacers vs. Thunder,2026-01-17 15:05:13.717329+00:00,1.0,okc vs ind,100.0
+199315,Hawks vs. Hornets,2026-02-05 15:03:40.681596+00:00,1.0,atl vs cha,100.0
