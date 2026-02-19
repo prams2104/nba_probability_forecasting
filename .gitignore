@@ -1,0 +1,9 @@
+# .gitignore
+venv/
+env/
+.env
+__pycache__/
+*.pyc
+data/raw/*
+!data/raw/.gitkeep
+.DS_Store
