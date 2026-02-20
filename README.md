@@ -147,10 +147,3 @@ pip install -r requirements.txt
 Typical needs: `pandas`, `numpy`, `matplotlib`, `requests`, `rapidfuzz`. See `requirements.txt` for versions.
 
 ---
-
-## Contact
-
-- **Phase 1 (pipeline, matching, no-vig, evaluation):** Pramesh  
-- **Phase 2 (report, slides, extra analysis):** Zitian, Yu-Jung  
-
-For grading: Phase 1 delivers the data pipeline, quantitative logic, and baseline sportsbook calibration; Phase 2 delivers the written report and presentation, including the API constraints narrative.
