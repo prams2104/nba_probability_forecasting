@@ -3,27 +3,32 @@ import pandas as pd
 import time
 import logging
 import json
+import os
 
 logger = logging.getLogger(__name__)
 
 def fetch_polymarket_history_paginated(use_start_date_for_timestamp: bool = True):
-    """
-    Fetches historical NBA data from the Gamma API while respecting rate limits.
-
-    Args:
-        use_start_date_for_timestamp: If True, use startDate (market open, before game)
-            for temporal alignment with T-minus-1-hour snapshots. If False, use endDate
-            (game start/close). startDate is required for merge_asof(direction='backward').
-    """
     logger.info("Starting production Polymarket Gamma API extraction...")
+    cache_path = 'data/raw/raw_poly_cache.json'
+    
+    if os.path.exists(cache_path):
+        logger.info("Loading Polymarket data from local cache... (Skipping API wait!)")
+        df = pd.read_json(cache_path)
+        df['timestamp'] = pd.to_datetime(df['timestamp'], utc=True)
+        return df
+
     url = "https://gamma-api.polymarket.com/events"
     all_events = []
     limit = 100
     offset = 0
-
     MIN_YEAR = 2022
 
     while True:
+        # 1. THE HARD FAILSAFE (Stops no matter what at 50,000)
+        if offset >= 50000:
+            logger.info("Reached absolute maximum limit of 50,000 offsets. Stopping extraction.")
+            break
+
         try:
             params = {"limit": limit, "offset": offset, "tag": "NBA", "closed": "true"}
             response = requests.get(url, params=params)
@@ -32,20 +37,22 @@ def fetch_polymarket_history_paginated(use_start_date_for_timestamp: bool = True
             
             if not data:
                 break 
-                
-            # Check the date of the first item on the page
-            last_event_date = pd.to_datetime(data[-1].get("endDate"))
+
+            # 2. THE SAFE "EARLY EXIT" FOR 2022
+            valid_years_on_page = []
             
-            # If the entire page is older than our target year, STOP.
-            if last_event_date.year < MIN_YEAR:
-                logger.info(f"Reached {last_event_date.year}. Stopping extraction as per 2022 boundary.")
-                break
-
             for item in data:
-                # Still check individual items to be safe
-                event_date = pd.to_datetime(item.get("endDate"), utc=True)
+                raw_date = item.get("endDate")
+                if not raw_date:
+                    continue
+                
+                event_date = pd.to_datetime(raw_date, utc=True)
+                if event_date is None or pd.isna(event_date):
+                    continue
+                
+                valid_years_on_page.append(event_date.year)
+                
                 if event_date.year >= MIN_YEAR:
-
                     markets = item.get("markets", [])
                     prob = 0.50 
                     if markets and "outcomePrices" in markets[0]:
@@ -62,12 +69,24 @@ def fetch_polymarket_history_paginated(use_start_date_for_timestamp: bool = True
                         "polymarket_prob": prob
                     })
             
-            logger.info(f"Fetched offset {offset} (Date: {last_event_date.date()})")
+            # If every single valid event on this page is older than 2022, STOP!
+            if valid_years_on_page and max(valid_years_on_page) < MIN_YEAR:
+                logger.info("Reached pre-2022 historical data. Stopping extraction.")
+                break
+
+            logger.info(f"Fetched offset {offset}...")
             offset += limit
-            time.sleep(0.3) # Slightly faster sleep since we're being targeted
+            time.sleep(0.3) 
             
         except Exception as e:
             logger.error(f"Error at offset {offset}: {e}")
-            break
-            
-    return pd.DataFrame(all_events)
+            offset += limit 
+            time.sleep(1)
+                
+    df = pd.DataFrame(all_events)
+    
+    os.makedirs('data/raw', exist_ok=True)
+    df.to_json(cache_path, orient='records', date_format='iso')
+    logger.info(f"Saved {len(df)} targeted events to local cache.")
+    
+    return df

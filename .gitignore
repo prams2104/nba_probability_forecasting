@@ -7,3 +7,4 @@ __pycache__/
 data/raw/*
 !data/raw/.gitkeep
 .DS_Store
+pipeline_execution.log

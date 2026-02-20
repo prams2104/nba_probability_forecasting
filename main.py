@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import logging
 from pathlib import Path
-from datetime import timedelta
 
 # --- STRICT ABSOLUTE IMPORTS ---
 from src.extraction.gamma_api import fetch_polymarket_history_paginated
@@ -62,10 +61,17 @@ def main():
     logger.info("Executing RapidFuzz matching logic...")
     sb_event_list = sb_df['sportsbook_event_name'].unique().tolist()
     
-    # Apply matching function row-by-row
-    poly_df[['matched_sb_event', 'matching_score']] = poly_df.apply(
-        lambda row: pd.Series(match_teams(row['poly_event_name'], sb_event_list)), axis=1, result_type='expand'
-    )
+    # Apply matching function row-by-row safely
+    if not poly_df.empty:
+        poly_df[['matched_sb_event', 'matching_score']] = poly_df.apply(
+            lambda row: pd.Series(match_teams(row['poly_event_name'], sb_event_list)), 
+            axis=1, 
+            result_type='expand'
+        )
+    else:
+        logger.warning("Polymarket DataFrame is empty! Creating dummy columns to prevent crash.")
+        poly_df['matched_sb_event'] = None
+        poly_df['matching_score'] = 0.0
     
     # Strict 90% Threshold Filter 
     logger.info("Applying strict 90% similarity threshold...")

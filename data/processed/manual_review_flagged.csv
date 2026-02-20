@@ -1,61 +1,311 @@
 event_id,poly_event_name,timestamp,polymarket_prob,matched_sb_event,matching_score
-54714,Jazz vs. Rockets,2025-10-06 00:03:34.406515+00:00,0.0,utah vs hou,90.19607843137256
-56230,Jazz vs. Spurs,2025-10-08 00:08:13.555586+00:00,0.0,sa vs utah,90.9090909090909
-56696,Mavericks vs. Jazz,2025-10-08 22:56:00.307681+00:00,1.0,dal vs utah,90.56603773584906
-59872,Trail Blazers vs. Jazz,2025-10-15 03:52:17.680158+00:00,0.0,utah vs por,92.3076923076923
-62541,Clippers vs. Jazz,2025-10-20 19:48:15.391884+00:00,0.0,utah vs lac,91.80327868852459
-62556,Jazz vs. Kings,2025-10-20 19:48:09.828065+00:00,0.0,utah vs sac,90.56603773584906
-64025,Suns vs. Jazz,2025-10-23 14:06:11.723745+00:00,0.0,phx vs utah,88.88888888888889
-64040,Trail Blazers vs. Jazz,2025-10-23 14:06:11.753307+00:00,1.0,utah vs por,92.3076923076923
-65151,Jazz vs. Suns,2025-10-25 14:02:31.947286+00:00,0.0,phx vs utah,88.88888888888889
-66171,Jazz vs. Hornets,2025-10-27 14:06:27.188352+00:00,0.0,cha vs utah,90.9090909090909
-67049,Jazz vs. Celtics,2025-10-28 14:01:30.032320+00:00,1.0,utah vs bos,89.79591836734694
-68919,Jazz vs. Pistons,2025-10-30 14:03:34.897406+00:00,0.0,det vs utah,90.19607843137256
-70403,Jazz vs. Timberwolves,2025-11-01 14:08:26.405868+00:00,0.0,min vs utah,92.3076923076923
-72894,Timberwolves vs. Jazz,2025-11-04 15:04:34.086105+00:00,0.0,min vs utah,92.3076923076923
-73706,Pacers vs. Jazz,2025-11-05 15:04:17.048120+00:00,0.0,ind vs utah,89.79591836734694
-75366,Hawks vs. Jazz,2025-11-07 15:05:11.024833+00:00,1.0,atl vs utah,89.36170212765957
-77747,Bulls vs. Jazz,2025-11-10 15:10:23.053216+00:00,0.0,utah vs chi,89.36170212765957
-79693,Jazz vs. Lakers,2025-11-12 15:04:44.446994+00:00,1.0,lal vs utah,91.22807017543859
-82100,Thunder vs. Jazz,2025-11-15 15:07:27.283937+00:00,1.0,okc vs utah,92.06349206349206
-83569,Lakers vs. Jazz,2025-11-17 15:08:32.129258+00:00,1.0,lal vs utah,91.22807017543859
-84464,Jazz vs. Warriors,2025-11-18 15:04:29.520442+00:00,0.0,gs vs utah,92.06349206349206
-87601,Kings vs. Jazz,2025-11-22 15:11:10.379089+00:00,0.0,utah vs sac,90.56603773584906
-89223,Rockets vs. Jazz,2025-11-24 15:05:13.161350+00:00,1.0,utah vs hou,90.19607843137256
-90128,Rockets vs. Jazz,2025-11-25 15:06:00.377855+00:00,1.0,utah vs hou,90.19607843137256
-92517,Jazz vs. Nets,2025-11-28 15:22:46.447966+00:00,1.0,utah vs bkn,89.36170212765957
-93316,Jazz vs. Knicks,2025-11-29 15:07:22.044678+00:00,1.0,ny vs utah,90.19607843137256
-94868,Thunder vs. Jazz,2025-12-01 15:05:34.080896+00:00,0.0,okc vs utah,92.06349206349206
-98704,Jazz vs. Grizzlies,2025-12-06 15:02:42.851433+00:00,1.0,utah vs mem,90.9090909090909
-100945,Mavericks vs. Jazz,2025-12-09 15:04:44.432611+00:00,1.0,dal vs utah,90.56603773584906
-103306,Lakers vs. Jazz,2025-12-12 15:02:39.282929+00:00,1.0,lal vs utah,91.22807017543859
-104894,Magic vs. Jazz,2025-12-14 15:08:44.051884+00:00,1.0,orl vs utah,89.36170212765957
-106676,Jazz vs. Nuggets,2025-12-16 15:05:23.588048+00:00,0.0,den vs utah,89.79591836734694
-107509,Grizzlies vs. Jazz,2025-12-17 15:07:25.736644+00:00,1.0,utah vs mem,90.9090909090909
-113568,Pistons vs. Jazz,2025-12-20 15:09:29.580767+00:00,0.0,det vs utah,90.19607843137256
-115462,Jazz vs. Spurs,2025-12-21 15:04:03.678879+00:00,1.0,sa vs utah,90.9090909090909
-121323,Celtics vs. Jazz,2025-12-24 15:08:39.033150+00:00,1.0,utah vs bos,89.79591836734694
-125084,Jazz vs. Clippers,2025-12-26 15:04:17.665500+00:00,0.0,utah vs lac,91.80327868852459
-128962,Jazz vs. Warriors,2025-12-28 15:12:26.460232+00:00,0.0,gs vs utah,92.06349206349206
-133189,Jazz vs. Trail Blazers,2025-12-30 15:09:22.332412+00:00,0.0,utah vs por,92.3076923076923
-136918,Jazz vs. Thunder,2026-01-01 15:03:33.126268+00:00,1.0,okc vs utah,92.06349206349206
-138802,Mavericks vs. Jazz,2026-01-02 15:06:23.489894+00:00,0.0,dal vs utah,90.56603773584906
-142929,Hornets vs. Jazz,2026-01-04 15:03:34.707657+00:00,1.0,cha vs utah,90.9090909090909
-146874,Jazz vs. Cavaliers,2026-01-06 15:04:51.586769+00:00,1.0,utah vs cle,91.52542372881356
-151185,Jazz vs. Bulls,2026-01-08 15:34:55.711420+00:00,0.0,utah vs chi,89.36170212765957
-153311,Jazz vs. Mavericks,2026-01-09 15:03:26.422751+00:00,0.0,dal vs utah,90.56603773584906
-157383,Jazz vs. Mavericks,2026-01-11 15:03:12.157256+00:00,1.0,dal vs utah,90.56603773584906
-161598,Jazz vs. Spurs,2026-01-13 15:03:21.745715+00:00,0.0,sa vs utah,90.9090909090909
-163913,Timberwolves vs. Jazz,2026-01-14 15:07:01.914618+00:00,0.0,min vs utah,92.3076923076923
-168139,Spurs vs. Jazz,2026-01-16 15:03:27.900696+00:00,1.0,sa vs utah,90.9090909090909
-172335,Heat vs. Jazz,2026-01-18 15:03:51.145487+00:00,1.0,utah vs mia,87.8048780487805
-179088,Clippers vs. Jazz,2026-01-21 15:03:10.010411+00:00,1.0,utah vs lac,91.80327868852459
-181202,Warriors vs. Jazz,2026-01-22 15:03:24.091101+00:00,0.0,gs vs utah,92.06349206349206
-185713,Nets vs. Jazz,2026-01-24 15:03:11.693801+00:00,0.0,utah vs bkn,89.36170212765957
-189427,Jazz vs. Raptors,2026-01-26 15:03:51.575865+00:00,0.0,tor vs utah,90.19607843137256
-191312,Jazz vs. Pacers,2026-01-28 15:05:06.140213+00:00,0.0,ind vs utah,89.79591836734694
-193453,Jazz vs. Hawks,2026-01-30 15:05:47.712836+00:00,0.0,atl vs utah,89.36170212765957
-195468,Jazz vs. Magic,2026-02-01 15:03:22.526722+00:00,0.0,orl vs utah,89.36170212765957
-197549,Jazz vs. Heat,2026-02-03 15:04:25.295782+00:00,1.0,utah vs mia,87.8048780487805
-199358,Kings vs. Jazz,2026-02-05 15:05:59.225815+00:00,1.0,utah vs sac,90.56603773584906
-200272,Trail Blazers vs. Jazz,2026-02-06 15:05:24.123952+00:00,0.0,utah vs por,92.3076923076923
+3961,"NBA: Will the Warriors beat the Mavericks by more than 6.5 points in their May 20, 9:00 PM ET matchup?",2022-05-20 00:00:00+00:00,0.9999991955,gs vs utah,84.0
+4459,Will the Charlotte Hornets make the 2022 NBA playoffs?,2022-04-15 00:00:00+00:00,7.167000000000001e-07,cha vs utah,80.95238095238095
+4512,"NBA: Will the Warriors beat the Mavericks by more than 6.5 points in their May 26, 9:00 PM ET matchup?",2022-05-26 00:00:00+00:00,0.9999995752,gs vs utah,84.0
+4945,NBA: Will the Cavaliers beat the Pacers by more than 2.5 points in their January 2 matchup?,2022-01-02 00:00:00+00:00,0.9999989525,utah vs cle,82.6086956521739
+5265,NBA: Will the Lakers beat the Kings by more than 6.5 points in their January 4 matchup?,2022-01-04 00:00:00+00:00,0.9999983710000001,lal vs utah,81.81818181818181
+5316,"NBA: Will the Heat beat the 76ers by more than 8.5 points in their May 4, 7:30 PM ET matchup?",2022-05-04 00:00:00+00:00,0.9999997661000001,phi vs utah,81.81818181818181
+5580,NBA: Memphis Grizzlies' winning streak length?,2022-01-14 00:00:00+00:00,0.9999997816,utah vs mem,80.95238095238095
+5747,Thor: Love and Thunder,2022-07-11 00:00:00+00:00,1.8228000000000001e-06,okc vs utah,84.0
+10126,Was Moscow attack a false flag?,2024-03-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+10571,Lakers Next Head Coach?,2024-10-22 12:00:00+00:00,0.0,lal vs utah,81.81818181818181
+10771,Was Caitlyn Jenner hacked?,2024-05-28 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+10795,Was Iggy Azalea hacked?,2024-05-29 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+10864,Was Roaring Kitty GME YOLO update fake?,2024-06-07 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+10948,NBA Finals Game 1: Celtics -6.5 ,2024-06-06 12:00:00+00:00,1.0,utah vs bos,80.95238095238095
+10951,Dan Hurley next Lakers head coach?,2024-10-22 12:00:00+00:00,0.0,lal vs utah,81.81818181818181
+10977,Was @Cobratate hacked?,2024-06-09 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+11146,Bronny James drafted by the Lakers?,2024-06-27 12:00:00+00:00,1.0,lal vs utah,81.81818181818181
+11201,Was Barron involved in $DJT?,2024-06-23 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+11298,"Will Trump say the debate was ""rigged""?",2024-06-29 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+11498,Fact Check: Was it a real gun?,2024-07-31 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+11499,"Fact Check: Was the Trump shooter ""a Chinese man""?",2024-07-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+11503,Fact Check: Was it a rogue actor?,2024-08-15 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+11507,Fact Check: Was Trump wearing a bulletproof vest?,2024-07-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+11508,Was the shooter a Democrat or Republican?,2024-07-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+11532,Fact Check: Was there an order to hold fire?,2024-08-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+11677,Was Biden campaign call fake?,2024-07-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+11893,Was Eric Trump hacked?,2024-08-08 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+12193,Will Trump admit 'Operation Warp Speed' was his fault?,2024-08-25 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+12369,Was Lara Trump hacked?,2024-09-08 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+12380,Trudeau no confidence motion passes in 2024?,2024-12-31 12:00:00+00:00,0.0,utah vs no,83.33333333333334
+12511,"Will Trump claim the debate was ""rigged""?",2024-09-13 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+12541,'Speak No Evil' grosses >$13m opening weekend?,2024-09-13 12:00:00+00:00,0.0,utah vs no,83.33333333333334
+12598,Fact Check: Was it an attempt on Trump?,2024-09-22 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+12601,Fact check: Was it a rogue actor? ,2024-09-30 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+12793,EPL: Wolves vs. Liverpool,2024-09-28 12:00:00+00:00,0.0,min vs bkn,81.08108108108108
+13277,Spurs vs. West Ham,2024-10-19 12:00:00+00:00,1.0,sa vs mia,80.0
+13332,Wolves vs. Man City,2024-10-20 12:00:00+00:00,0.0,mia vs min,86.15384615384616
+13443,Six Kings Slam Winner,2024-10-19 12:00:00+00:00,0.0,utah vs sac,80.0
+13583,Grizzlies vs. Jazz,2024-10-24 01:00:00+00:00,1.0,utah vs mem,90.9090909090909
+13600,Warriors vs. Jazz,2024-10-26 01:30:00+00:00,1.0,gs vs utah,92.06349206349206
+13629,Jazz vs. Mavericks,2024-10-29 00:30:00+00:00,0.0,dal vs utah,90.56603773584906
+13655,Brighton vs. Wolves,2024-10-26 12:00:00+00:00,0.0,min vs bkn,82.1917808219178
+13825,Wolves vs. Crystal Palace,2024-11-02 17:30:00+00:00,0.0,min vs ind,80.0
+13826,Spurs vs. Villa,2024-11-03 14:00:00+00:00,1.0,sa vs utah,86.27450980392157
+13850,Kings vs. Jazz,2024-10-30 01:00:00+00:00,1.0,utah vs sac,90.56603773584906
+13867,Spurs vs. Jazz,2024-11-01 01:00:00+00:00,1.0,sa vs utah,90.9090909090909
+13909,CA-47 election: Min (D) vs. Baugh (R),2024-11-05 12:00:00+00:00,1.0,min vs orl,83.33333333333334
+13973,Jazz vs. Nuggets,2024-11-03 02:00:00+00:00,0.0,den vs utah,89.79591836734694
+13984,Jazz vs. Bulls,2024-11-05 01:30:00+00:00,1.0,utah vs chi,89.36170212765957
+14057,Jazz vs. Bucks,2024-11-08 01:00:00+00:00,0.0,utah vs mil,90.19607843137256
+14074,Jazz vs. Spurs,2024-11-09 22:00:00+00:00,1.0,sa vs utah,90.9090909090909
+14298,Suns vs. Jazz,2024-11-13 02:00:00+00:00,1.0,phx vs utah,88.88888888888889
+14313,Mavericks vs. Jazz,2024-11-21 12:00:00+00:00,0.0,dal vs utah,90.56603773584906
+14331,Jazz vs. Kings,2024-11-17 03:00:00+00:00,0.0,utah vs sac,90.56603773584906
+14341,Jazz vs. Clippers,2024-11-18 02:00:00+00:00,0.0,utah vs lac,91.80327868852459
+14356,Fulham vs. Wolves,2024-11-23 15:00:00+00:00,0.0,mia vs min,85.29411764705883
+14360,Man City vs. Spurs,2024-11-23 17:30:00+00:00,0.0,sa vs mia,83.63636363636364
+14496,Jazz vs. Lakers,2024-11-20 03:30:00+00:00,0.0,lal vs utah,91.22807017543859
+14507,Jazz vs. Spurs,2024-11-22 01:00:00+00:00,0.0,sa vs utah,90.9090909090909
+14517,Knicks vs. Jazz,2024-11-23 22:00:00+00:00,0.0,ny vs utah,90.19607843137256
+14741,Wolves vs. Bournemouth,2024-11-30 15:00:00+00:00,0.0,bos vs min,80.51948051948052
+14768,Spurs vs. Jazz,2024-11-27 02:00:00+00:00,1.0,sa vs utah,90.9090909090909
+14781,Nuggets vs. Jazz,2024-11-28 02:00:00+00:00,1.0,den vs utah,89.79591836734694
+14798,Mavericks vs. Jazz,2024-12-01 02:30:00+00:00,1.0,dal vs utah,90.56603773584906
+14917,Lakers vs. Jazz,2024-12-02 01:00:00+00:00,1.0,lal vs utah,91.22807017543859
+14930,Jazz vs. Thunder,2024-12-04 01:00:00+00:00,0.0,okc vs utah,92.06349206349206
+14956,Jazz vs. Trail Blazers,2024-12-07 03:00:00+00:00,1.0,utah vs por,92.3076923076923
+15007,Everton vs. Wolves,2024-12-04 19:30:00+00:00,1.0,min vs den,82.1917808219178
+15095,Stars vs. Kings,2024-12-05 03:00:00+00:00,0.0,utah vs sac,89.79591836734694
+15212,Jazz vs. Kings,2024-12-09 02:00:00+00:00,0.0,utah vs sac,90.56603773584906
+15228,Suns vs. Jazz,2024-12-14 02:30:00+00:00,1.0,phx vs utah,88.88888888888889
+15275,West Ham vs. Wolves,2024-12-09 20:00:00+00:00,1.0,mia vs min,82.85714285714285
+15279,Wolves vs. Ipswich,2024-12-14 15:00:00+00:00,0.0,mia vs min,81.15942028985508
+15294,Fact check: Was Luigi Mangione a lone actor?,2024-12-31 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+15301,Fact Check: was Luigi Mangione paid?,2024-12-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+15335,Will the Wizards win again this year?,2024-12-31 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+15373,Fact Check: Was the money planted on Luigi Mangione?,2025-04-30 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+15419,Will Lebron play against the Timberwolves?,2024-12-13 12:00:00+00:00,0.0,min vs utah,84.61538461538461
+15457,Jazz vs. Clippers,2024-12-17 03:30:00+00:00,0.0,utah vs lac,91.80327868852459
+15459,Jazz vs. Pistons,2024-12-20 00:00:00+00:00,1.0,det vs utah,90.19607843137256
+15490,Jazz vs. Nets,2024-12-22 00:30:00+00:00,1.0,utah vs bkn,89.36170212765957
+15523,Kings vs. Penguins,2024-12-18 00:00:00+00:00,0.0,sac vs phx,80.0
+15552,Kings vs. Predators,2024-12-21 18:30:00+00:00,0.0,tor vs sac,81.25
+15589,Trudeau no confidence motion passes before April?,2025-03-31 12:00:00+00:00,0.0,utah vs no,83.33333333333334
+15644,Leicester vs. Wolves,2024-12-22 14:00:00+00:00,0.0,dal vs min,80.51948051948052
+15739,Jazz vs. Cavaliers,2024-12-24 00:00:00+00:00,0.0,utah vs cle,91.52542372881356
+15762,Jazz vs. Trail Blazers,2024-12-27 03:00:00+00:00,0.0,utah vs por,92.3076923076923
+15778,76ers vs. Jazz,2024-12-29 02:30:00+00:00,1.0,phi vs utah,91.22807017543859
+15893,Tottenham vs. Wolves,2024-12-29 12:00:00+00:00,0.0,min vs utah,86.15384615384616
+15971,Nuggets vs. Jazz,2024-12-31 02:00:00+00:00,1.0,den vs utah,89.79591836734694
+15985,Jazz vs. Knicks,2025-01-02 00:30:00+00:00,0.0,ny vs utah,90.19607843137256
+16010,Jazz vs. Heat,2025-01-05 01:00:00+00:00,1.0,utah vs mia,87.8048780487805
+16241,Was the Cybertruck bombing a lone wolf attack?,2025-01-31 12:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+16288,Jazz vs. Magic,2025-01-05 23:30:00+00:00,1.0,orl vs utah,89.36170212765957
+16304,Hawks vs. Jazz,2025-01-08 02:00:00+00:00,1.0,atl vs utah,89.36170212765957
+16320,Heat vs. Jazz,2025-01-10 02:00:00+00:00,1.0,utah vs mia,87.8048780487805
+16331,Jazz vs. Suns,2025-01-11 22:00:00+00:00,0.0,phx vs utah,88.88888888888889
+16368,Kings vs. Jets,2025-01-11 01:00:00+00:00,1.0,mia vs sac,81.4814814814815
+16474,Chelsea vs. Wolves,2025-01-20 20:00:00+00:00,1.0,mia vs min,84.05797101449275
+16601,Nets vs. Jazz,2025-01-13 01:00:00+00:00,0.0,utah vs bkn,89.36170212765957
+16624,Hornets vs. Jazz,2025-01-16 02:00:00+00:00,1.0,cha vs utah,90.9090909090909
+16635,Jazz vs. Pelicans,2025-01-18 01:00:00+00:00,0.0,utah vs no,91.80327868852459
+16677,Kings vs. Canucks,2025-01-17 03:00:00+00:00,1.0,sac vs atl,80.0
+16771,Wolves vs. Arsenal,2025-01-25 15:00:00+00:00,0.0,mia vs min,81.15942028985508
+16875,Was Trump hacked?,2025-01-19 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+16904,Penguins vs. Kings,2025-01-21 03:30:00+00:00,1.0,sac vs phx,80.0
+16925,Panthers vs. Kings,2025-01-23 03:00:00+00:00,0.0,sac vs ind,80.64516129032258
+16938,Jazz vs. Pelicans,2025-01-21 01:00:00+00:00,0.0,utah vs no,91.80327868852459
+16949,Jazz vs. Thunder,2025-01-23 01:00:00+00:00,0.0,okc vs utah,92.06349206349206
+16976,Jazz vs. Grizzlies,2025-01-26 01:00:00+00:00,0.0,utah vs mem,90.9090909090909
+17006,Wolves vs. Aston Villa,2025-02-01 17:30:00+00:00,1.0,min vs utah,80.59701492537313
+17149,Evidence released proving JFK assassination was an inside job by Feb 10?,2025-02-10 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+17150,Evidence released proving JFK was assassinated by a foreign government by Feb 10? ,2025-02-10 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+17172,Was JFK assassinated by a foreign government? ,2025-03-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+17174,Was JFK assassination an inside job?,2025-03-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+17224,Kings vs. Panthers,2025-01-30 00:00:00+00:00,0.0,sac vs ind,80.64516129032258
+17343,Bucks vs. Jazz,2025-01-28 02:00:00+00:00,1.0,utah vs mil,90.19607843137256
+17347,Jazz vs. Warriors,2025-01-29 03:00:00+00:00,0.0,gs vs utah,92.06349206349206
+17362,Timberwolves vs. Jazz,2025-01-31 02:00:00+00:00,1.0,min vs utah,92.3076923076923
+17372,Magic vs. Jazz,2025-02-01 22:00:00+00:00,0.0,orl vs utah,89.36170212765957
+17598,Pacers vs. Jazz,2025-02-04 02:00:00+00:00,1.0,ind vs utah,89.79591836734694
+17617,Warriors vs. Jazz,2025-02-06 02:00:00+00:00,0.0,gs vs utah,92.06349206349206
+17632,Jazz vs. Suns,2025-02-08 03:00:00+00:00,0.0,phx vs utah,88.88888888888889
+17643,Jazz vs. Clippers,2025-02-09 03:30:00+00:00,0.0,utah vs lac,91.80327868852459
+17676,Stars vs. Kings,2025-02-08 03:30:00+00:00,0.0,utah vs sac,89.79591836734694
+17690,Ducks vs. Kings,2025-02-09 03:30:00+00:00,1.0,sac vs mil,80.0
+17703,Will Mavericks fire GM Nico Harrison?,2025-07-31 12:00:00+00:00,0.0,dal vs utah,80.0
+17735,Will the Lakers trade for a center?,2025-02-06 12:00:00+00:00,1.0,lal vs utah,81.81818181818181
+17769,Liverpool vs. Wolves,2025-02-16 14:00:00+00:00,1.0,min vs bkn,81.08108108108108
+18136,Jazz vs. Lakers,2025-02-11 03:30:00+00:00,0.0,lal vs utah,91.22807017543859
+18147,Bournemouth vs. Wolves,2025-02-22 15:00:00+00:00,0.0,bos vs min,80.51948051948052
+18154,Lakers vs. Jazz,2025-02-13 02:00:00+00:00,0.0,lal vs utah,91.22807017543859
+18164,Clippers vs. Jazz,2025-02-14 02:00:00+00:00,1.0,utah vs lac,91.80327868852459
+18433,Wolves vs. Fulham,2025-02-25 19:30:00+00:00,0.0,mia vs min,85.29411764705883
+18650,Was Milei hacked?,2025-02-16 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+18732,Thunder vs. Jazz,2025-02-22 02:30:00+00:00,1.0,okc vs utah,92.06349206349206
+18738,Rockets vs. Jazz,2025-02-23 02:30:00+00:00,0.0,utah vs hou,90.19607843137256
+19042,Was the captain of crashed Delta flight a woman?,2025-02-24 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+19289,Trail Blazers vs. Jazz,2025-02-25 02:00:00+00:00,1.0,utah vs por,92.3076923076923
+19307,Kings vs. Jazz,2025-02-27 02:00:00+00:00,1.0,utah vs sac,90.56603773584906
+19324,Timberwolves vs. Jazz,2025-03-01 02:30:00+00:00,0.0,min vs utah,92.3076923076923
+19331,Wolves vs. Everton,2025-03-08 20:00:00+00:00,0.0,min vs den,82.1917808219178
+19335,Golden Knights vs. Kings,2025-02-25 03:30:00+00:00,0.0,den vs sac,82.35294117647058
+19364,Canucks vs. Kings,2025-02-27 03:00:00+00:00,1.0,sac vs atl,80.0
+19393,Kings vs. Stars,2025-03-01 01:00:00+00:00,0.0,utah vs sac,89.79591836734694
+19500,Pelicans vs. Jazz,2025-03-03 01:00:00+00:00,1.0,utah vs no,91.80327868852459
+20033,Pistons vs. Jazz,2025-03-04 02:00:00+00:00,1.0,det vs utah,90.19607843137256
+20044,Jazz vs. Wizards,2025-03-06 00:00:00+00:00,0.0,wsh vs utah,91.22807017543859
+20059,Jazz vs. Raptors,2025-03-08 00:30:00+00:00,0.0,tor vs utah,90.19607843137256
+20083,Kings vs. Blackhawks,2025-03-04 01:30:00+00:00,0.0,sac vs atl,85.71428571428572
+20167,Jazz vs. 76ers,2025-03-09 23:30:00+00:00,0.0,phi vs utah,91.22807017543859
+20177,Kings vs. Golden Knights,2025-03-10 00:00:00+00:00,1.0,den vs sac,82.35294117647058
+20554,Jazz vs. Celtics,2025-03-10 23:30:00+00:00,0.0,utah vs bos,89.79591836734694
+20571,Jazz vs. Grizzlies,2025-03-13 00:00:00+00:00,0.0,utah vs mem,90.9090909090909
+20589,Raptors vs. Jazz,2025-03-15 01:30:00+00:00,1.0,tor vs utah,90.19607843137256
+20608,Jazz vs. Timberwolves,2025-03-16 23:00:00+00:00,0.0,min vs utah,92.3076923076923
+20697,Predators vs. Kings,2025-03-16 00:00:00+00:00,0.0,tor vs sac,81.25
+20799,Elon no longer world's richest before July?,2025-06-30 12:00:00+00:00,0.0,utah vs no,83.33333333333334
+20957,Raptors vs Jazz,2025-03-15 01:30:00+00:00,0.0,tor vs utah,90.19607843137256
+20985,Bulls vs. Jazz,2025-03-18 01:00:00+00:00,1.0,utah vs chi,89.36170212765957
+21001,Wizards vs. Jazz,2025-03-20 01:00:00+00:00,0.0,wsh vs utah,91.22807017543859
+21038,Celtics vs. Jazz,2025-03-22 01:30:00+00:00,1.0,utah vs bos,89.79591836734694
+21048,Cavaliers vs. Jazz,2025-03-23 19:30:00+00:00,1.0,utah vs cle,91.52542372881356
+21115,Kings vs. Blackhawks,2025-03-21 00:30:00+00:00,1.0,sac vs atl,85.71428571428572
+21232,Wolves vs. West Ham,2025-04-01 18:45:00+00:00,1.0,mia vs min,82.85714285714285
+21288,Celtics vs Jazz,2025-03-22 01:30:00+00:00,1.0,utah vs bos,89.79591836734694
+21367,Was 9/11 an inside job?,2025-12-31 12:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+21381,Cavaliers vs Jazz,2025-03-23 19:30:00+00:00,1.0,utah vs cle,91.52542372881356
+21392,Chennai Super Kings vs. Mumbai Indians,2025-03-23 12:00:00+00:00,1.0,sac vs ind,82.35294117647058
+21404,Ipswich vs. Wolves,2025-04-05 14:00:00+00:00,0.0,mia vs min,81.15942028985508
+21431,Kings vs. Avalanche,2025-03-28 02:00:00+00:00,0.0,sac vs atl,80.64516129032258
+21476,Grizzlies vs. Jazz,2025-03-26 01:00:00+00:00,1.0,utah vs mem,90.9090909090909
+21493,Rockets vs. Jazz,2025-03-28 01:00:00+00:00,1.0,utah vs hou,90.19607843137256
+21502,Jazz vs. Nuggets,2025-03-29 01:00:00+00:00,0.0,den vs utah,89.79591836734694
+21529,Sharks vs. Kings,2025-03-31 02:00:00+00:00,0.0,utah vs sac,84.0
+21536,Grizzlies vs Jazz,2025-03-26 01:00:00+00:00,1.0,utah vs mem,90.9090909090909
+21650,Rockets vs Jazz,2025-03-28 01:00:00+00:00,1.0,utah vs hou,90.19607843137256
+21703,Jazz vs Nuggets,2025-03-29 01:00:00+00:00,1.0,den vs utah,89.79591836734694
+21796,Jazz vs. Hornets,2025-03-31 23:00:00+00:00,0.0,cha vs utah,90.9090909090909
+21821,Jets vs. Kings,2025-04-02 02:30:00+00:00,0.0,mia vs sac,81.4814814814815
+21855,Jazz vs Hornets,2025-03-31 23:00:00+00:00,0.0,cha vs utah,90.9090909090909
+21868,Wolves vs. Tottenham,2025-04-13 13:00:00+00:00,1.0,min vs utah,86.15384615384616
+21959,Jazz vs Rockets,2025-04-03 00:00:00+00:00,1.0,utah vs hou,90.19607843137256
+21972,Jazz vs. Rockets,2025-04-03 00:00:00+00:00,0.0,utah vs hou,90.19607843137256
+21984,Jazz vs. Pacers,2025-04-04 23:00:00+00:00,0.0,ind vs utah,89.79591836734694
+22005,Jazz vs. Hawks,2025-04-06 22:00:00+00:00,0.0,atl vs utah,89.36170212765957
+22086,Los Angeles Dodgers vs. Atlanta Braves,2025-04-03 00:38:00+00:00,1.0,atl vs lal,80.55555555555556
+22181,Jazz vs Pacers,2025-04-04 23:00:00+00:00,1.0,ind vs utah,89.79591836734694
+22264,Jazz vs Hawks,2025-04-06 22:00:00+00:00,0.0,atl vs utah,89.36170212765957
+22292,Trail Blazers vs. Jazz,2025-04-10 01:00:00+00:00,0.0,utah vs por,92.3076923076923
+22313,Thunder vs. Jazz,2025-04-12 01:30:00+00:00,1.0,okc vs utah,92.06349206349206
+22350,Ducks vs. Kings,2025-04-11 02:00:00+00:00,0.0,sac vs mil,80.0
+22360,Avalanche vs. Kings,2025-04-12 20:00:00+00:00,0.0,sac vs atl,80.64516129032258
+22389,Jazz vs. Timberwolves,2025-04-13 19:30:00+00:00,0.0,min vs utah,92.3076923076923
+22467,Trail Blazers vs Jazz,2025-04-10 01:00:00+00:00,0.0,utah vs por,92.3076923076923
+22492,'King of Kings' Opening Weekend Box Office,2025-04-14 12:00:00+00:00,0.0,utah vs sac,80.0
+22560,Thunder vs Jazz,2025-04-12 01:30:00+00:00,1.0,okc vs utah,92.06349206349206
+22678,Jazz vs Timberwolves,2025-04-13 19:30:00+00:00,0.0,min vs utah,92.3076923076923
+22709,Wolves vs. Leicester,2025-04-26 14:00:00+00:00,1.0,dal vs min,80.51948051948052
+23103,Manchester City vs. Wolves,2025-05-02 19:00:00+00:00,1.0,mia vs min,80.55555555555556
+23116,Mumbai Indians vs. Chennai Super Kings,2025-04-20 14:00:00+00:00,1.0,sac vs ind,82.35294117647058
+23495,Wolves vs. Brighton,2025-05-10 14:00:00+00:00,0.0,min vs bkn,82.1917808219178
+23891,Punjab Kings vs. Mumbai Indians,2025-05-11 10:00:00+00:00,1.0,sac vs ind,82.35294117647058
+24001,May 6 NBA Parlay: Cavaliers and Timberwolves both win? ,2025-05-07 12:00:00+00:00,0.0,utah vs cle,82.6086956521739
+24032,Crystal Palace vs. Wolves,2025-05-20 19:00:00+00:00,1.0,min vs ind,80.0
+24341,May 13 NBA Parlay: Cavaliers and Thunder both win? ,2025-05-14 12:00:00+00:00,0.0,utah vs cle,82.6086956521739
+24445,NBA Draft: Will Mavericks trade #1 pick?,2025-06-26 12:00:00+00:00,0.0,dal vs utah,80.0
+24474,Will Anthony Edwards score 30+ points against the Warriors?,2025-05-14 12:00:00+00:00,0.0,gs vs utah,84.0
+24475,Will Jimmy Butler score 25+ points against the Timberwolves?,2025-05-14 12:00:00+00:00,0.0,min vs utah,84.61538461538461
+24476,Will Jonathan Kuminga score 20+ points against the Timberwolves?,2025-05-14 12:00:00+00:00,1.0,min vs utah,84.61538461538461
+24502,Will Jamal Murray score 22+ points against the Thunder?,2025-05-15 12:00:00+00:00,1.0,okc vs utah,84.0
+24503,Will Michael Porter Jr. score 9+ points against the Thunder?,2025-05-15 12:00:00+00:00,1.0,okc vs utah,84.0
+24833,Mumbai Indians vs. Punjab Kings,2025-05-26 14:00:00+00:00,0.0,sac vs ind,82.35294117647058
+24859,Will Jalen Williams score 20+ points against the Timberwolves? ,2025-05-20 12:00:00+00:00,0.0,min vs utah,84.61538461538461
+24860,Will Anthony Edwards score 26+ points against the Thunder?,2025-05-20 12:00:00+00:00,0.0,okc vs utah,84.0
+24861,Will Julius Randle score 20+ points against the Thunder?,2025-05-20 12:00:00+00:00,1.0,okc vs utah,84.0
+25011,Thunder win and SGA scores 31+ points?,2025-05-22 12:00:00+00:00,1.0,okc vs utah,84.0
+25013,Will Anthony Edwards score 25+ points against the Thunder?,2025-05-22 12:00:00+00:00,1.0,okc vs utah,84.0
+25014,Timberwolves win and Anthony Edwards scores 25+ points? ,2025-05-22 12:00:00+00:00,0.0,min vs utah,84.61538461538461
+25015,Thunder and Panthers both win?,2025-05-22 12:00:00+00:00,1.0,okc vs utah,84.0
+25016,Timberwolves and Hurricanes both win? ,2025-05-22 12:00:00+00:00,0.0,min vs utah,84.61538461538461
+25208,Thunder win and SGA scores 33+ points?,2025-05-26 12:00:00+00:00,1.0,okc vs utah,84.0
+25209,Timberwolves win and Edwards scores 31+ points? ,2025-05-26 12:00:00+00:00,0.0,min vs utah,84.61538461538461
+25211,Thunder and Panthers both win?,2025-05-26 12:00:00+00:00,0.0,okc vs utah,84.0
+25212,Timberwolves and Hurricanes both win? ,2025-05-26 12:00:00+00:00,0.0,min vs utah,84.61538461538461
+25213,Will SGA score 33+ points against the Timberwolves?,2025-05-26 12:00:00+00:00,1.0,min vs utah,84.61538461538461
+25215,Will Anthony Edwards score 31+ points against the Thunder? ,2025-05-26 12:00:00+00:00,0.0,okc vs utah,84.0
+25331,Will SGA score 34+ points against the Timberwolves? ,2025-05-28 12:00:00+00:00,1.0,min vs utah,84.61538461538461
+25333,Will Anthony Edwards score 28+ points against the Thunder? ,2025-05-28 12:00:00+00:00,0.0,okc vs utah,84.0
+25334,Timberwolves win and Edwards scores 28+ points? ,2025-05-28 12:00:00+00:00,0.0,min vs utah,84.61538461538461
+25335,Thunder win and SGA scores 34+ points? ,2025-05-28 12:00:00+00:00,1.0,okc vs utah,84.0
+25601,Mumbai Indians vs. Punjab Kings,2025-06-01 14:00:00+00:00,0.0,sac vs ind,82.35294117647058
+25771,NBA Finals G1: Thunder win and SGA scores 34+ points? ,2025-06-05 00:00:00+00:00,0.0,okc vs utah,84.0
+25775,NBA Finals G1: Will Haliburton score 18+ points against the Thunder? ,2025-06-05 00:00:00+00:00,0.0,okc vs utah,84.0
+25881,IPL Finals: Will the Punjab Kings score 200+ runs?,2025-06-04 00:00:00+00:00,0.0,utah vs sac,80.0
+26086,Elon no longer world's richest before August?,2025-08-31 00:00:00+00:00,0.0,utah vs no,83.33333333333334
+26228,NBA Finals G2: Thunder win and SGA scores 34+ points? ,2025-06-08 00:00:00+00:00,1.0,okc vs utah,84.0
+26229,NBA Finals G2: Will Haliburton score 17+ points against the Thunder? ,2025-06-08 00:00:00+00:00,1.0,okc vs utah,84.0
+26473,NBA Finals G3: Thunder win and SGA scores 35+ points? ,2025-06-11 00:00:00+00:00,0.0,okc vs utah,84.0
+26479,NBA Finals G3: Will Haliburton score 18+ points against the Thunder? ,2025-06-11 00:00:00+00:00,1.0,okc vs utah,84.0
+26760,NBA Finals G4: Will Haliburton score 18+ points against the Thunder? ,2025-06-13 00:00:00+00:00,1.0,okc vs utah,84.0
+27104,NBA Finals: Thunder to win game 4 and the series?,2025-06-22 00:00:00+00:00,1.0,okc vs utah,84.0
+27172,NBA Finals G5: Will Haliburton score 17+ points against the Thunder? ,2025-06-16 00:00:00+00:00,0.0,okc vs utah,84.0
+27516,NBA Finals G6: Will Haliburton score 16+ points against the Thunder? ,2025-06-19 00:00:00+00:00,0.0,okc vs utah,84.0
+27517,NBA Finals G6: Will Siakam score 23+ points against the Thunder? ,2025-06-19 00:00:00+00:00,0.0,okc vs utah,84.0
+27852,NBA Finals G7: Will Haliburton score 15+ points against the Thunder? ,2025-06-22 00:00:00+00:00,0.0,okc vs utah,84.0
+27854,NBA Finals G7: Will Siakam score 22+ points against the Thunder? ,2025-06-22 00:00:00+00:00,0.0,okc vs utah,84.0
+28989,Will Zion leave the Pelicans before next season?,2025-10-22 04:00:00+00:00,0.0,utah vs no,83.33333333333334
+30377,Elon no longer world's richest before 2026?,2025-12-31 22:00:00+00:00,0.0,utah vs no,83.33333333333334
+31203,Grizzlies vs. Jazz,2025-07-08 01:00:00+00:00,0.0,utah vs mem,90.9090909090909
+31206,Thunder vs. Jazz,2025-07-09 01:00:00+00:00,0.0,okc vs utah,92.06349206349206
+31401,Jazz vs. Hornets,2025-07-11 23:00:00+00:00,0.0,cha vs utah,90.9090909090909
+31763,Warriors vs. Jazz,2025-07-14 02:00:00+00:00,1.0,gs vs utah,92.06349206349206
+31906,Jazz vs. Spurs,2025-07-15 00:30:00+00:00,0.0,sa vs utah,90.9090909090909
+32277,Wizards vs. Jazz,2025-07-17 02:00:00+00:00,0.0,wsh vs utah,91.22807017543859
+32290,Lee Sang-min in jail by August 15?,2025-08-15 00:00:00+00:00,1.0,min vs den,83.78378378378379
+32613,Jazz vs. Bulls,2025-07-19 00:00:00+00:00,0.0,utah vs chi,89.36170212765957
+32791,MLS Soccer: Red Bulls vs. Inter Miami ,2025-07-20 00:00:00+00:00,0.0,mia vs chi,87.27272727272728
+34876,Leagues Cup – Charlotte FC vs. FC Juarez (90 Min Result) ,2025-08-01 00:00:00+00:00,0.0,min vs cha,84.44444444444444
+35515,Wolves vs. Manchester City,2025-08-16 16:30:00+00:00,0.0,mia vs min,80.55555555555556
+36987,Bournemouth vs. Wolves,2025-08-23 14:00:00+00:00,1.0,bos vs min,80.51948051948052
+37216,MLS Soccer: Red Bulls vs. Philadelphia ,2025-08-17 00:00:00+00:00,1.0,chi vs phi,90.625
+38088,Wolves vs. Everton,2025-08-30 14:00:00+00:00,0.0,min vs den,82.1917808219178
+38740,Was Kanye hacked?,2025-08-31 00:00:00+00:00,0.0,wsh vs utah,81.81818181818181
+40261,Seattle Sounders vs. Inter Miami (90 Min Result) ,2025-09-01 00:00:00+00:00,1.0,min vs phx,80.0
+42401,Wolves vs. Leeds United,2025-09-20 14:00:00+00:00,0.0,min vs utah,82.35294117647058
+43848,Fact check: Was Tyler Robinson a lone actor?,2025-10-31 00:00:00+00:00,1.0,wsh vs utah,81.81818181818181
+44330,Tottenham vs. Wolves,2025-09-27 19:00:00+00:00,0.0,min vs utah,86.15384615384616
+45158,CS: CPH Wolves vs EYEBALLERS,2025-09-23 10:00:00+00:00,1.0,dal vs min,82.05128205128204
+46554,LoL: GS vs LOSA,2025-09-27 11:00:00+00:00,0.0,gs vs utah,82.75862068965517
+47057,WAS vs. Bruins,2025-09-21 21:00:00+00:00,1.0,wsh vs utah,85.18518518518519
+47058,Ducks vs. Kings,2025-09-21 22:00:00+00:00,0.0,sac vs mil,80.0
+47075,Kings vs. VEG,2025-09-24 02:00:00+00:00,1.0,utah vs sac,85.1063829787234
+47081,Kings vs. Ducks,2025-09-25 02:00:00+00:00,1.0,sac vs mil,80.0
+47084,Flyers vs. WAS,2025-09-25 23:00:00+00:00,0.0,bkn vs wsh,82.53968253968253
+47915,Wolves vs. Brighton,2025-10-05 13:00:00+00:00,0.0,min vs bkn,82.1917808219178
+48312,Ducks vs. Kings,2025-09-27 22:00:00+00:00,1.0,sac vs mil,80.0
+48536,CS: RUBY vs CPH Wolves,2025-09-30 10:00:00+00:00,1.0,min vs orl,80.55555555555556
+48989,New York Red Bulls vs. New York City FC,2025-09-27 23:30:00+00:00,0.0,ny vs chi,87.71929824561404
+49021,Counter-Strike: Copenhagen Wolves vs FORZE Reload,2025-09-24 08:30:00+00:00,1.0,min vs orl,80.51948051948052
+49945,Will Delta Air Lines (DAL) beat quarterly earnings?,2025-10-09 00:00:00+00:00,1.0,dal vs utah,80.0
+49950,Will Goldman Sachs (GS) beat quarterly earnings?,2025-10-14 00:00:00+00:00,1.0,gs vs utah,84.0
+50037,Counter-Strike: Copenhagen Wolves vs Reason,2025-09-26 17:30:00+00:00,1.0,min vs phx,82.85714285714285
+51792,Army vs. UAB Blazers,2025-10-04 16:00:00+00:00,1.0,utah vs por,83.33333333333334
+53135,Ducks vs. Kings,2025-10-04 16:00:00+00:00,0.0,sac vs mil,80.0
+53145,Avalanche vs. Kings,2025-10-07 22:30:00+00:00,1.0,sac vs atl,80.64516129032258
+53148,Kings vs. Golden Knights,2025-10-08 22:00:00+00:00,1.0,den vs sac,82.35294117647058
+54286,Sunderland AFC vs. Wolves,2025-10-18 14:00:00+00:00,1.0,min vs orl,86.07594936708861
+54434,Counter-Strike: Copenhagen Wolves vs Alliance (BO3),2025-10-06 17:00:00+00:00,0.0,min vs atl,80.51948051948052
+54499,Kings vs. Jets,2025-10-11 13:30:00+00:00,0.0,mia vs sac,81.4814814814815
+54553,Counter-Strike: True Thunder vs Eruption (BO3),2025-10-06 13:00:00+00:00,0.0,okc vs bkn,80.0
+54557,Counter-Strike: Chinggis Warriors vs DEPO (BO3),2025-10-06 13:00:00+00:00,0.0,bos vs gs,80.55555555555556
+54714,Jazz vs. Rockets,2025-10-09 00:00:00+00:00,0.0,utah vs hou,90.19607843137256
+55247,UAB Blazers vs. Florida Atlantic,2025-10-11 22:00:00+00:00,0.0,atl vs por,83.9506172839506
+56076,Penguins vs. Kings,2025-10-17 02:00:00+00:00,1.0,sac vs phx,80.0
+56125,Kings vs. Stars,2025-10-24 01:00:00+00:00,1.0,utah vs sac,89.79591836734694
+56142,Kings vs. Predators,2025-10-26 00:00:00+00:00,0.0,tor vs sac,81.25
+56150,Kings vs. Blackhawks,2025-10-26 23:00:00+00:00,1.0,sac vs atl,85.71428571428572
+56170,Kings vs. Sharks,2025-10-29 03:00:00+00:00,1.0,utah vs sac,84.0
+56230,Jazz vs. Spurs,2025-10-11 00:00:00+00:00,0.0,sa vs utah,90.9090909090909
+56696,Mavericks vs. Jazz,2025-10-14 01:00:00+00:00,1.0,dal vs utah,90.56603773584906
+56947,No Cut October,2025-10-31 00:00:00+00:00,0.0,utah vs no,83.33333333333334
+56982,Jets vs. Kings,2025-11-04 22:30:00+00:00,0.0,mia vs sac,81.4814814814815
+57451,Panthers vs. Kings,2025-11-06 22:00:00+00:00,1.0,sac vs ind,80.64516129032258
+58699,Wolves vs. Burnley FC,2025-10-26 14:00:00+00:00,0.0,min vs bkn,83.33333333333334
+58942,Six Kings Slam: Sinner vs Stefanos,2025-10-15 00:00:00+00:00,1.0,utah vs sac,84.61538461538461
+58943,Six Kings Slam Winner,2025-10-18 00:00:00+00:00,0.0,utah vs sac,80.0
+58985,Kings vs. Penguins,2025-11-09 14:00:00+00:00,1.0,sac vs phx,80.0
+59372,Memphis vs. UAB Blazers,2025-10-18 20:00:00+00:00,0.0,por vs mem,86.8421052631579
+59872,Trail Blazers vs. Jazz,2025-10-17 01:00:00+00:00,0.0,utah vs por,92.3076923076923
