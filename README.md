@@ -96,7 +96,7 @@ The following have been implemented and are ready for use by the team:
 
 ---
 
-## Phase 2 Next Steps (Tasks for Zitian & Yu-Jung)
+## Phase 2 Next Steps
 
 Use this list to complete the final analysis, report, and presentation:
 

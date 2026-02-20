@@ -18,7 +18,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# 3. Load & Prep Kaggle Sportsbook Data
+# 2. Load & Prep Kaggle Sportsbook Data
 def load_and_prep_sportsbook(filepath):
     logger.info(f"Loading sportsbook data from {filepath}...")
     df = pd.read_csv(filepath)
@@ -46,7 +46,7 @@ def load_and_prep_sportsbook(filepath):
 
     return df
 
-# 4. Master Pipeline Execution
+# 3. Master Pipeline Execution
 def main():
     logger.info("Initializing Step 1: Data Extraction & Matching Pipeline")
     

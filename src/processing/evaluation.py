@@ -1,5 +1,5 @@
 """
-ECE 143: Sportsbook Calibration & Evaluation (Option A — Sportsbook-Only).
+ECE 143: Sportsbook Calibration & Evaluation (Sportsbook-Only).
 
 This module evaluates the accuracy of traditional sportsbook predictions
 (T-minus 1 hour, no-vig probabilities) against actual NBA game outcomes.
