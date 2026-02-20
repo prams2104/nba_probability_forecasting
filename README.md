@@ -1,7 +1,6 @@
 # Quantitative Forecasting: Sportsbook Calibration & Prediction Market API Constraints
 
-**ECE 143 — Programming and Data Analysis**  
-**Group Project | Phase 1 Handoff**
+**ECE 143 — Programming and Data Analysis** **Group Project | Phase 1 Handoff**
 
 ---
 
@@ -29,28 +28,22 @@ During extraction we discovered that **Polymarket’s API does not expose histor
 
 ### Pipeline Overview
 
-1. **Kaggle data**  
-   - Load `data/raw/nba_2008-2025.csv` (or equivalent).  
+1. **Kaggle data** - Load `data/raw/nba_2008-2025.csv` (or equivalent).  
    - Derive `target_snapshot_time` = game time minus 1 hour.  
    - Build join key: `sportsbook_event_name` = `"home_team vs away_team"` (e.g. `"min vs okc"`).
 
-2. **Polymarket (Gamma) extraction**  
-   - Paginated requests to `https://gamma-api.polymarket.com/events` (tag=NBA, closed=true).  
+2. **Polymarket (Gamma) extraction** - Paginated requests to `https://gamma-api.polymarket.com/events` (tag=NBA, closed=true).  
    - For each event: `event_id`, `poly_event_name`, `timestamp` (e.g. endDate), and terminal `outcomePrices` (not usable for pre-game probabilities).
 
-3. **Fuzzy matching**  
-   - **rapidfuzz** with a **30-team alias dictionary** (e.g. "Timberwolves" → "minnesota timberwolves", "min" → "minnesota timberwolves").  
+3. **Fuzzy matching** - **rapidfuzz** with a **30-team alias dictionary** (e.g. "Timberwolves" → "minnesota timberwolves", "min" → "minnesota timberwolves").  
    - Match Polymarket event titles to `sportsbook_event_name`; keep matches above a **90% similarity** threshold.
 
-4. **Temporal synchronization**  
-   - **`pd.merge_asof`** (direction=`"backward"`) so that, for each sportsbook row (keyed by `sportsbook_event_name` and `target_snapshot_time`), we attach the **latest** Polymarket row with the same event key and `timestamp <= target_snapshot_time`.  
+4. **Temporal synchronization** - **`pd.merge_asof`** (direction=`"backward"`) so that, for each sportsbook row (keyed by `sportsbook_event_name` and `target_snapshot_time`), we attach the **latest** Polymarket row with the same event key and `timestamp <= target_snapshot_time`.  
    - This yields one row per game with sportsbook odds and a matched Polymarket event (for metadata only; we do not use Polymarket probabilities in the final evaluation).
 
-5. **No-vig (quant) logic**  
-   - Convert American moneyline odds to implied probabilities; normalize by overround to get **fair_prob_home** and **fair_prob_away** (no-vig probabilities).
+5. **No-vig (quant) logic** - Convert American moneyline odds to implied probabilities; normalize by overround to get **fair_prob_home** and **fair_prob_away** (no-vig probabilities).
 
-6. **Evaluation (Option A)**  
-   - **Sportsbook-only:** Use `fair_prob_home` and actual outcome (home win = 1, away win = 0).  
+6. **Evaluation (Option A)** - **Sportsbook-only:** Use `fair_prob_home` and actual outcome (home win = 1, away win = 0).  
    - Compute **Brier Score** and **Log Loss**, and plot a **Probability Calibration Curve** (reliability diagram) plus a histogram of predicted confidence.  
    - Output: `data/processed/sportsbook_calibration.png` and a short terminal summary.
 
@@ -63,63 +56,28 @@ During extraction we discovered that **Polymarket’s API does not expose histor
 
 ---
 
-## Phase 1 Completed (Pramesh’s Contributions)
+## Team Handoff & Next Steps
 
-The following have been implemented and are ready for use by the team:
+Because the data extraction, time-merging, and math functions were highly interdependent, the base programmatic pipeline (Extraction, Merging, No-Vig Logic, and Baseline Evaluation) has been laid down in this repository. 
 
-- **Data extraction & cleaning**  
-  - Kaggle sportsbook data loading and preprocessing (game time, T-minus 1 hour, event names).  
-  - Polymarket Gamma API paginated extraction and caching (`src/extraction/gamma_api.py`).
+Here is the division of labor for the remainder of the project:
 
-- **No-vig quantitative logic**  
-  - American odds → implied probabilities; overround removal → `fair_prob_home` / `fair_prob_away` (`src/processing/quant_logic.py`).
+### Phase 1: Pipeline Foundation (Completed by Pramesh)
+- **Data extraction & cleaning:** Polymarket API extraction (`gamma_api.py`) and Kaggle pre-processing.
+- **Fuzzy matching:** 30-team alias table and `rapidfuzz` mapping (`fuzzy_match.py`).
+- **Temporal synchronization:** `pd.merge_asof` integration (`main.py`).
+- **Pipeline scaffolding:** Initial draft of `quant_logic.py` and `evaluation.py`. 
 
-- **Fuzzy matching**  
-  - 30-team alias table and `rapidfuzz`-based matching with a 90% threshold (`src/matching/fuzzy_match.py`).  
-  - Manual audit helpers (e.g. 5% audit log, manual review flags) for match quality.
+### Phase 2: Data Processing & Validation (Tasks for Priyansh & Karthik)
+The base `quant_logic.py` and temporal merge are in the repo. Your goal is to take over the data validation and EDA:
+1. **Audit the No-Vig Math:** Review `src/processing/quant_logic.py` to ensure the implied probability conversions are mathematically sound.
+2. **Exploratory Data Analysis (EDA):** Dig into the Kaggle data and `master_events.csv`. Calculate the average sportsbook vig, check for any missing odds edge cases, and evaluate how much data is dropped at the T-minus 1 hour snapshot.
 
-- **Temporal synchronization**  
-  - `pd.merge_asof` in `main.py` to align sportsbook and Polymarket by event and time.  
-  - Diagnostic script `scripts/diagnose_merge.py` to check dtypes, time ranges, and key overlap before the merge.
-
-- **Baseline evaluation script & calibration plot**  
-  - **Sportsbook-only** evaluation in `src/processing/evaluation.py`:  
-    - Loads `data/processed/master_events.csv`.  
-    - Ground truth: home win (1) / away win (0).  
-    - Brier Score and Log Loss for `fair_prob_home`.  
-    - **Probability Calibration Curve** (reliability diagram) + **histogram** of predicted confidence.  
-  - Saves plot to `data/processed/sportsbook_calibration.png`.  
-  - Prints a short summary of metrics to the terminal.
-
-- **Archived Polymarket research**  
-  - Exploratory and diagnostic Polymarket scripts (price history, verification of NBA game markets, alternative methods, etc.) are in `src/archive_polymarket_research/` with a README explaining why they were archived and what they show.
-
----
-
-## Phase 2 Next Steps
-
-Use this list to complete the final analysis, report, and presentation:
-
-1. **Review the calibration output**  
-   - Open and interpret `data/processed/sportsbook_calibration.png`.  
-   - Check how close the calibration curve is to the diagonal (perfect calibration).  
-   - Use the histogram to describe where the model is most confident (e.g. near 0.5 vs extremes).
-
-2. **Expand statistical analysis (if desired)**  
-   - Add confidence intervals for Brier Score / Log Loss (e.g. bootstrap).  
-   - Break down metrics by season, playoff vs regular, or home/away strength.  
-   - Optionally compare with a naive baseline (e.g. always 0.5).
-
-3. **Draft the final ECE 143 academic report**  
-   - Include: objective, data sources, pipeline (Kaggle → Gamma → fuzzy match → merge_asof → no-vig → evaluation).  
-   - **Clearly describe the Polymarket API limitation** (no historical order book, no individual NBA games) and the decision to pivot to **Option A (sportsbook-only)**.  
-   - Report Brier Score, Log Loss, and calibration findings.  
-   - Discuss limitations and possible future work (e.g. if Polymarket added game-level markets).
-
-4. **Create presentation slides**  
-   - One slide on **API data availability constraints** as a key engineering finding (purged CLOB data, no NBA game markets).  
-   - Slides on pipeline (fuzzy match, merge_asof, no-vig), evaluation (Brier, Log Loss, calibration plot), and conclusions.  
-   - Keep the narrative: “We built a full comparison pipeline; API limitations led us to a sportsbook-only evaluation, which is still rigorous and informative.”
+### Phase 3: Visualization, Scoring & Reporting (Tasks for Zitian & Yu-Jung)
+A baseline `evaluation.py` script has been built that generates an initial Brier Score and Probability Calibration Curve `.png` as a starting point. Your turn to take over the Data Science and Storytelling:
+1. **Expand the Data Science:** Modify `evaluation.py` to break down the calibration curves further (e.g., Playoffs vs. Regular season, or Heavy Favorites vs. Underdogs). Add confidence intervals to the Brier scores.
+2. **Draft the Academic Report:** Write the final report explaining our methodology, Brier Score/Log Loss results, and calibration findings. 
+3. **Create Presentation Slides:** Pull the visual insights into the final presentation. **Crucial:** Ensure we include a dedicated slide on the Polymarket API data-purging limitation as a core engineering finding.
 
 ---
 
