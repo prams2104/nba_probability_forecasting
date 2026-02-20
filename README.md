@@ -147,3 +147,7 @@ pip install -r requirements.txt
 Typical needs: `pandas`, `numpy`, `matplotlib`, `requests`, `rapidfuzz`. See `requirements.txt` for versions.
 
 ---
+## Team Roles
+1. **(Extraction & Pipeline Setup): Pramesh**
+2. **(Data Validation & EDA): Priyansh, Karthik**
+3. **(Data Science, Visualization & Reporting): Zitian, Yu-Jung**
