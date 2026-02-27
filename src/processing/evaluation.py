@@ -2,28 +2,66 @@
 ECE 143: Sportsbook Calibration & Evaluation (Sportsbook-Only).
 
 This module evaluates the accuracy of traditional sportsbook predictions
-(T-minus 1 hour, no-vig probabilities) against actual NBA game outcomes.
+(no-vig probabilities from moneyline odds) against actual NBA game outcomes.
 It computes Brier Score, Log Loss, and a Probability Calibration Curve
 (Reliability Diagram) with a confidence distribution histogram.
 
-Data note: the pipeline produces `master_events.csv` with 512 temporally
-synchronized games, but because the upstream Kaggle file omits moneyline
-columns for most games in seasons 2023–2025, only 17 of those games have
-valid `fair_prob_home` / `fair_prob_away` (no-vig probabilities). The
-evaluation functions automatically drop rows without valid probabilities.
+Data sources:
+  - **Kaggle (recommended):** Loads `data/raw/nba_2008-2025.csv` directly.
+    ~19,820 games have moneyline odds (seasons 2008–2022 fully, 2023 partial).
+    Use this for statistically meaningful calibration analysis.
+  - **master_events.csv (legacy):** Output of main.py Polymarket merge.
+    512 games, but only 17 have moneylines (Kaggle drops them for 2023–2025).
+    Kept for methodology/story; not recommended for evaluation.
 """
 
-import pandas as pd
-import numpy as np
+from __future__ import annotations
+
 import logging
-import matplotlib.pyplot as plt
 from pathlib import Path
+from typing import Optional
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+from src.processing.quant_logic import apply_no_vig_probabilities
 
 logger = logging.getLogger(__name__)
 
-# Default path to the master dataset (output of main.py pipeline)
+# Default paths
+DEFAULT_KAGGLE_PATH = "data/raw/nba_2008-2025.csv"
 DEFAULT_MASTER_PATH = "data/processed/master_events.csv"
 DEFAULT_OUTPUT_PLOT = "data/processed/sportsbook_calibration.png"
+
+
+def load_kaggle_for_evaluation(filepath: str = DEFAULT_KAGGLE_PATH) -> pd.DataFrame:
+    """
+    Load Kaggle NBA sportsbook data and prepare for evaluation.
+
+    Filters to rows with valid moneyline odds, applies no-vig conversion,
+    and returns a dataframe with fair_prob_home, score_home, score_away.
+    Use this for the main evaluation (~19,820 games).
+    """
+    path = Path(filepath)
+    if not path.exists():
+        raise FileNotFoundError(f"Kaggle file not found: {filepath}")
+
+    df = pd.read_csv(path)
+    df = df.rename(columns={
+        "home": "home_team",
+        "away": "away_team",
+        "moneyline_home": "home_odds",
+        "moneyline_away": "away_odds",
+    })
+
+    mask = df["home_odds"].notna() & df["away_odds"].notna()
+    df = df[mask].copy()
+    if df.empty:
+        raise ValueError("No rows with valid moneyline odds in Kaggle file.")
+
+    df = apply_no_vig_probabilities(df)
+    return df
 
 
 def load_master_events(filepath: str = DEFAULT_MASTER_PATH) -> pd.DataFrame:
@@ -116,27 +154,39 @@ def reliability_diagram_data(
     )
 
 
-def evaluate_sportsbook(filepath: str = DEFAULT_MASTER_PATH) -> pd.DataFrame:
+def evaluate_sportsbook(
+    source: str = "kaggle",
+    filepath: Optional[str] = None,
+) -> pd.DataFrame:
     """
     Full sportsbook-only evaluation pipeline.
 
-    1. Load master_events.csv.
+    1. Load data (Kaggle raw or master_events.csv).
     2. Compute ground truth (home_won).
     3. Compute Brier Score and Log Loss for fair_prob_home.
     4. Build calibration curve data (no plotting here).
 
+    Args:
+        source: "kaggle" (default) for ~19,820 games from Kaggle raw;
+                "master_events" for 17 games from Polymarket merge output.
+        filepath: Override path; if None, uses default for the chosen source.
+
     Returns the dataframe with added columns: home_won, brier_sportsbook, logloss_sportsbook.
     """
-    df = load_master_events(filepath)
+    if source == "kaggle":
+        path = filepath or DEFAULT_KAGGLE_PATH
+        df = load_kaggle_for_evaluation(path)
+        df.attrs["_eval_source"] = "kaggle"
+    else:
+        path = filepath or DEFAULT_MASTER_PATH
+        df = load_master_events(path)
+        df = df.dropna(subset=["fair_prob_home"]).copy()
+        df.attrs["_eval_source"] = "master_events"
 
-    # Ensure we have the required columns
-    if "fair_prob_home" not in df.columns:
-        raise ValueError("Column 'fair_prob_home' not found. Run main.py and apply no-vig logic first.")
-
-    # Drop rows with missing probabilities so metrics are well-defined
-    df = df.dropna(subset=["fair_prob_home"]).copy()
     if df.empty:
-        raise ValueError("No rows with valid fair_prob_home after dropping NaN.")
+        raise ValueError("No rows with valid fair_prob_home after loading.")
+    if "fair_prob_home" not in df.columns:
+        raise ValueError("Column 'fair_prob_home' not found. Ensure no-vig logic was applied.")
 
     # Ground truth: 1 if home won, 0 if away won
     df["home_won"] = compute_ground_truth(df)
@@ -228,13 +278,17 @@ def print_summary(df: pd.DataFrame) -> None:
     n = len(df)
     brier = df["brier_sportsbook"].mean()
     logloss = df["logloss_sportsbook"].mean()
+    source = df.attrs.get("_eval_source", "unknown")
+    dataset_name = (
+        "Kaggle raw (nba_2008-2025.csv)" if source == "kaggle" else "master_events.csv"
+    )
 
     print()
     print("=" * 70)
-    print("  ECE 143 — Sportsbook Calibration & Evaluation (Option A)")
+    print("  ECE 143 — Sportsbook Calibration & Evaluation (Sportsbook-Only)")
     print("=" * 70)
     print()
-    print("  Dataset: master_events.csv (T-minus 1 hour, no-vig probabilities)")
+    print("  Dataset: {} (no-vig probabilities from moneyline odds)".format(dataset_name))
     print("  Sample size: {} NBA games".format(n))
     print()
     print("  --- Metrics (lower is better) ---")
@@ -247,7 +301,8 @@ def print_summary(df: pd.DataFrame) -> None:
 
 
 def run_evaluation(
-    filepath: str = DEFAULT_MASTER_PATH,
+    source: str = "kaggle",
+    filepath: Optional[str] = None,
     output_plot: str = DEFAULT_OUTPUT_PLOT,
     n_bins: int = 10,
 ) -> pd.DataFrame:
@@ -255,9 +310,15 @@ def run_evaluation(
     Run the full sportsbook-only evaluation: load data, compute metrics,
     plot calibration curve, and print summary.
 
+    Args:
+        source: "kaggle" (default) or "master_events".
+        filepath: Override data path; uses default for source if None.
+        output_plot: Path for calibration plot.
+        n_bins: Number of bins for reliability diagram.
+
     Returns the evaluation dataframe (with home_won, brier_sportsbook, logloss_sportsbook).
     """
-    df = evaluate_sportsbook(filepath)
+    df = evaluate_sportsbook(source=source, filepath=filepath)
     plot_calibration_curve(df, n_bins=n_bins, output_path=output_plot)
     print_summary(df)
     return df
@@ -268,4 +329,4 @@ if __name__ == "__main__":
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s",
     )
-    run_evaluation()
+    run_evaluation(source="kaggle")
