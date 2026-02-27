@@ -1,7 +1,15 @@
 import pandas as pd
-
+    
 def american_to_implied(odds):
     """Converts American Odds to raw implied probability."""
+    # AUDIT NOTE (Karthik): No handling for NaN or 0 odds values.
+    # NaN will silently propagate to fair_prob_home and corrupt Brier scores.
+    # odds == 0 returns 0.0 which is not a valid moneyline value.
+    #
+    # SUGGESTED FIX (commented out — decision left to Pramesh or Phase 3 team):
+    # if pd.isna(odds) or odds == 0:
+    #     return None
+    #
     if odds > 0:
         return 100 / (odds + 100)
     else:
