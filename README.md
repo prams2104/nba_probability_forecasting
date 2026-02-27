@@ -71,7 +71,7 @@ Here is the division of labor for the remainder of the project:
 ### Phase 2: Data Processing & Validation (Tasks for Priyansh & Karthik)
 The base `quant_logic.py` and temporal merge are in the repo. Your goal is to take over the data validation and EDA:
 1. **Audit the No-Vig Math:** Review `src/processing/quant_logic.py` to ensure the implied probability conversions are mathematically sound.
-2. **Exploratory Data Analysis (EDA):** Dig into the Kaggle data and `master_events.csv`. Calculate the average sportsbook vig, check for any missing odds edge cases, and evaluate how much data is dropped at the T-minus 1 hour snapshot.
+2. **Exploratory Data Analysis (EDA):** Dig into the Kaggle data and `master_events.csv`. Calculate the average sportsbook vig, check for any missing odds edge cases, and evaluate how much data is dropped at the T-minus 1 hour snapshot. **Note:** because the Kaggle file drops moneyline columns for most games in seasons 2023–2025, only **17** of the 512 temporally synchronized games in `master_events.csv` have complete moneyline + half-time odds; the rest still have spreads/totals but no moneylines. This is a limitation of the upstream Kaggle data rather than a bug in our merge.
 
 ### Phase 3: Visualization, Scoring & Reporting (Tasks for Zitian & Yu-Jung)
 A baseline `evaluation.py` script has been built that generates an initial Brier Score and Probability Calibration Curve `.png` as a starting point. Your turn to take over the Data Science and Storytelling:

@@ -6,8 +6,11 @@ This module evaluates the accuracy of traditional sportsbook predictions
 It computes Brier Score, Log Loss, and a Probability Calibration Curve
 (Reliability Diagram) with a confidence distribution histogram.
 
-Reference: master_events.csv contains 512 temporally synchronized games
-with fair_prob_home (no-vig probability that home team wins) and outcomes.
+Data note: the pipeline produces `master_events.csv` with 512 temporally
+synchronized games, but because the upstream Kaggle file omits moneyline
+columns for most games in seasons 2023–2025, only 17 of those games have
+valid `fair_prob_home` / `fair_prob_away` (no-vig probabilities). The
+evaluation functions automatically drop rows without valid probabilities.
 """
 
 import pandas as pd
