@@ -69,10 +69,22 @@ Here is the division of labor for the remainder of the project:
 - **Temporal synchronization:** `pd.merge_asof` integration (`main.py`).
 - **Pipeline scaffolding:** Initial draft of `quant_logic.py` and `evaluation.py`. 
 
-### Phase 2: Data Processing & Validation (Tasks for Priyansh & Karthik)
-The base `quant_logic.py` and temporal merge are in the repo. Your goal is to take over the data validation and EDA:
-1. **Audit the No-Vig Math:** Review `src/processing/quant_logic.py` to ensure the implied probability conversions are mathematically sound.
-2. **Exploratory Data Analysis (EDA):** Dig into the Kaggle data (`data/raw/nba_2008-2025.csv`) and `master_events.csv`. Calculate the average sportsbook vig, check for any missing odds edge cases, and evaluate how much data is dropped. **Data note:** Kaggle has moneyline odds for ~19,820 games (2008–2022 fully, 2023 partial); seasons 2024–2025 have no moneylines. The evaluation module uses Kaggle directly for the main analysis; `master_events.csv` (512 games from the Polymarket merge) has only 17 with moneylines and is kept for methodology/story.
+### Phase 2: Data Processing & Validation (Completed — Priyansh & Karthik)
+The base `quant_logic.py` and temporal merge are in the repo. Phase 2 covered data validation and EDA:
+
+1. **Audit the No-Vig Math (✅ Completed):**
+   - **`scripts/audit_quant_logic.py`** — Automated test suite that validates `quant_logic.py` against ground-truth values from an external no-vig calculator ([eGamingHQ No-Vig Calculator](https://www.egaminghq.com/no-vig-calculator/)). Tests 6 cases: symmetric odds, favorite/underdog, near-even, fair (no-vig), extreme favorite, and invalid zero odds. All pass with ≤0.01 tolerance.
+   - **Bug fix in `quant_logic.py`:** Added `import numpy`, zero-odds guard (`odds == 0 → NaN`), and NaN post-processing in `apply_no_vig_probabilities()` to handle invalid/missing odds gracefully.
+
+2. **Exploratory Data Analysis (✅ Completed):**
+   - **`scripts/eda_phase2.ipynb`** — Jupyter notebook performing EDA on the raw Kaggle dataset (`data/raw/nba_2008-2025.csv`). Analyses include:
+     - Dataset shape and null counts per column
+     - Data drop rate: how many games have valid moneyline odds vs. total
+     - Average, min, and max sportsbook vig across ~19,820 games
+     - **Vig distribution histogram** (2008–2025)
+     - **Home win probability distribution** (fair_prob_home after no-vig removal)
+     - **Games per season** with valid moneylines (bar chart; confirms 2008–2022 fully covered, 2023 partial, 2024–2025 have no moneylines)
+   - **Data note:** Kaggle has moneyline odds for ~19,820 games (2008–2022 fully, 2023 partial); seasons 2024–2025 have no moneylines. The evaluation module uses Kaggle directly for the main analysis; `master_events.csv` (512 games from the Polymarket merge) has only 17 with moneylines and is kept for methodology/story.
 
 ### Phase 3: Visualization, Scoring & Reporting (Tasks for Zitian & Yu-Jung)
 A baseline `evaluation.py` script has been built that generates an initial Brier Score and Probability Calibration Curve `.png` as a starting point. **By default it uses Kaggle raw (~19,820 games)** for statistically meaningful results. Your turn to take over the Data Science and Storytelling:
@@ -112,6 +124,8 @@ nba_probability_forecasting/
 │   │   └── evaluation.py            # Sportsbook-only: loads Kaggle, Brier, Log Loss, calibration
 │   └── archive_polymarket_research/  # Archived Polymarket scripts (see README there)
 ├── scripts/
+│   ├── audit_quant_logic.py          # No-vig math audit (6 test cases vs. eGamingHQ ground truth)
+│   ├── eda_phase2.ipynb             # Phase 2 EDA notebook (Kaggle raw: vig, missing odds, distributions)
 │   └── diagnose_merge.py            # Pre-merge diagnostics for merge_asof
 └── README.md                        # This handoff document
 ```
@@ -143,7 +157,16 @@ nba_probability_forecasting/
    ```  
    Produces `data/processed/sportsbook_calibration.png` and prints metrics.
 
-3. **Merge diagnostics (optional)**  
+3. **No-vig math audit** (validates `quant_logic.py` against external calculator)  
+   ```bash
+   python scripts/audit_quant_logic.py
+   ```
+
+4. **Phase 2 EDA notebook** (vig distributions, missing odds, data coverage)  
+   Open `scripts/eda_phase2.ipynb` in Jupyter/VS Code and run all cells.  
+   Expects `data/raw/nba_2008-2025.csv` to be present.
+
+5. **Merge diagnostics (optional)**  
    ```bash
    python scripts/diagnose_merge.py
    ```
