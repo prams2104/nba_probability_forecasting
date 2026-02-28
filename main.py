@@ -133,10 +133,13 @@ def main():
     logger.info("Applying No-Vig Fair Probability calculations...")
     master_df = apply_no_vig_probabilities(master_df)
     
-    # Save final output
+    # Save final output (for methodology/story; evaluation uses Kaggle raw by default)
     output_path = 'data/processed/master_events.csv'
     master_df.to_csv(output_path, index=False)
-    logger.info(f"Pipeline complete. Master dataset saved to {output_path} with {len(master_df)} synchronized events.")
+    logger.info(
+        f"Pipeline complete. Master dataset saved to {output_path} with {len(master_df)} synchronized events. "
+        "For sportsbook calibration, run: python -m src.processing.evaluation (uses Kaggle raw, ~19k games)."
+    )
 
 if __name__ == "__main__":
     main()

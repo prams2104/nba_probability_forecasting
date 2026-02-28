@@ -3,6 +3,11 @@ import numpy as np
 
 def american_to_implied(odds):
     """Converts American Odds to raw implied probability."""
+    # AUDIT NOTE (Karthik/Priyansh): No handling for NaN or 0 odds values.
+    # NaN will silently propagate to fair_prob_home and corrupt Brier scores.
+    # odds == 0 returns 0.0 which is not a valid moneyline value.
+    # We will handle these edge cases in the apply_no_vig_probabilities function by checking for NaN after conversion and assigning probabilities accordingly.
+    #
     if odds == 0:
         return np.nan
     if odds > 0:
