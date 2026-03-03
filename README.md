@@ -1,6 +1,6 @@
 # Quantitative Forecasting: Sportsbook Calibration & Prediction Market API Constraints
 
-**ECE 143 — Programming and Data Analysis** **Group Project | Phase 1 Handoff**
+**ECE 143 — Programming and Data Analysis** **Group Project**
 
 ---
 
@@ -57,60 +57,46 @@ During extraction we discovered that **Polymarket’s API does not expose histor
 
 ---
 
-## Team Handoff & Next Steps
+## Project Phases
 
-Because the data extraction, time-merging, and math functions were highly interdependent, the base programmatic pipeline (Extraction, Merging, No-Vig Logic, and Baseline Evaluation) has been laid down in this repository. 
+### Phase 1 — Pipeline Foundation (Pramesh)
 
-Here is the division of labor for the remainder of the project:
+Built the end-to-end data pipeline connecting all three data sources and processing steps:
 
-### Phase 1: Pipeline Foundation (Completed by Pramesh)
-- **Data extraction & cleaning:** Polymarket API extraction (`gamma_api.py`) and Kaggle pre-processing.
-- **Fuzzy matching:** 30-team alias table and `rapidfuzz` mapping (`fuzzy_match.py`).
-- **Temporal synchronization:** `pd.merge_asof` integration (`main.py`).
-- **Pipeline scaffolding:** Initial draft of `quant_logic.py` and `evaluation.py`. 
+- **Kaggle ingestion** (`main.py`) — loads `nba_2008-2025.csv`, standardizes team names, derives a T-minus 1 hour snapshot time, and builds a fuzzy-matchable event key per game.
+- **Polymarket extraction** (`src/extraction/gamma_api.py`) — paginated fetch from the Gamma API (tag=NBA, closed=true) with local caching; discovers the API limitation (no historical order book data for closed markets).
+- **Fuzzy matching** (`src/matching/fuzzy_match.py`) — 30-team alias dictionary + `rapidfuzz` to align Polymarket event strings with Kaggle's format; filters at 90% similarity and flags low-confidence matches for manual review.
+- **Temporal merge** (`main.py`) — `pd.merge_asof` synchronizes sportsbook snapshots with the nearest Polymarket timestamp, producing `data/processed/master_events.csv` (512 matched games).
+- **No-vig scaffold** (`src/processing/quant_logic.py`, `src/processing/evaluation.py`) — initial American-odds-to-fair-probability conversion and baseline Brier Score calculation.
 
-### Phase 2: Data Processing & Validation (Completed — Priyansh & Karthik)
-The base `quant_logic.py` and temporal merge are in the repo. Phase 2 covered data validation and EDA:
+### Phase 2 — Data Validation & EDA (Priyansh & Karthik)
 
-1. **Audit the No-Vig Math (✅ Completed):**
-   - **`scripts/audit_quant_logic.py`** — Automated test suite that validates `quant_logic.py` against ground-truth values from an external no-vig calculator ([eGamingHQ No-Vig Calculator](https://www.egaminghq.com/no-vig-calculator/)). Tests 6 cases: symmetric odds, favorite/underdog, near-even, fair (no-vig), extreme favorite, and invalid zero odds. All pass with ≤0.01 tolerance.
-   - **Bug fix in `quant_logic.py`:** Added `import numpy`, zero-odds guard (`odds == 0 → NaN`), and NaN post-processing in `apply_no_vig_probabilities()` to handle invalid/missing odds gracefully.
+Validated the no-vig math and characterized the dataset before evaluation:
 
-2. **Exploratory Data Analysis (✅ Completed):**
-   - **`scripts/eda_phase2.ipynb`** — Jupyter notebook performing EDA on the raw Kaggle dataset (`data/raw/nba_2008-2025.csv`). Analyses include:
-     - Dataset shape and null counts per column
-     - Data drop rate: how many games have valid moneyline odds vs. total
-     - Average, min, and max sportsbook vig across ~19,820 games
-     - **Vig distribution histogram** (2008–2025)
-     - **Home win probability distribution** (fair_prob_home after no-vig removal)
-     - **Games per season** with valid moneylines (bar chart; confirms 2008–2022 fully covered, 2023 partial, 2024–2025 have no moneylines)
-   - **Data note:** Kaggle has moneyline odds for ~19,820 games (2008–2022 fully, 2023 partial); seasons 2024–2025 have no moneylines. The evaluation module uses Kaggle directly for the main analysis; `master_events.csv` (512 games from the Polymarket merge) has only 17 with moneylines and is kept for methodology/story.
+- **Audit** (`scripts/audit_quant_logic.py`) — 6 test cases against an external no-vig calculator covering symmetric odds, favorites/underdogs, edge cases (zero odds, extreme lines). All pass within ±0.01 tolerance. A zero-odds guard and NaN handling were added to `quant_logic.py` as a result.
+- **EDA** (`analysis.ipynb §2`) — vig distribution (mean 3.77%), fair home win probability distribution, and games-per-season coverage confirming 2008–2022 are fully covered (2023 partial, 2024–2025 no moneylines).
+- **Data note** — ~19,820 of 23,118 total games (85.7%) have valid moneyline odds and are used for evaluation. The 512-game `master_events.csv` is retained for methodology context only.
 
-### Phase 3: Visualization, Scoring & Reporting (✅ Code Complete — Pramesh, Zitian & Yu-Jung)
+### Phase 3 — Calibration Analysis & Visualization (Zitian, Yu-Jung & Pramesh)
 
-The data science layer is fully implemented. `evaluation.py` and `quant_logic.py` were expanded and optimized:
+Expanded the evaluation module into a full calibration analysis and produced all project visualizations:
 
-1. **Expand the Data Science (✅ Completed):**
-   - **`quant_logic.py`** — `apply_no_vig_probabilities()` refactored to use vectorized NumPy operations (~20× faster). `american_to_implied()` preserved unchanged for audit compatibility; all 6 audit tests still pass.
-   - **`evaluation.py`** — Extended with four new analysis functions:
-     - `bootstrap_brier_ci()` — 1,000-resample bootstrap 95% CI on any Brier Score.
-     - `plot_segmented_calibration()` — side-by-side reliability diagrams for **Regular Season vs Playoffs**.
-     - `plot_favorite_calibration()` — overlaid calibration curves for three **prediction-confidence tiers** (strong favorite ≥65%, moderate 55–65%, near coin-flip <55%).
-     - `plot_brier_by_season()` — per-season Brier bar chart with 95% CI error bars showing calibration trend across 2008–2022.
-   - Running `python -m src.processing.evaluation` now produces **four plots** and an expanded terminal summary including CI and segment breakdowns.
+- **Vectorized no-vig** (`quant_logic.py`) — rewrote `apply_no_vig_probabilities()` with NumPy vectorized operations (~20× faster); all 6 audit tests continue to pass.
+- **Segmented calibration** (`evaluation.py`) — reliability diagrams broken down by game type (Regular Season vs Playoffs) and prediction confidence tier (strong favourite ≥65%, moderate 55–65%, near coin-flip <55%).
+- **Bootstrap confidence intervals** (`evaluation.py`) — 1,000-resample bootstrap 95% CI on every Brier Score estimate.
+- **Seasonal trend** (`evaluation.py`) — per-season Brier Score bar chart with CI error bars across 2008–2022.
+- **Notebook** (`analysis.ipynb`) — single pre-rendered notebook containing all EDA and calibration visualizations.
 
-   **Key results (19,820 games, 2008–2022):**
-   | Segment | Brier Score | N |
-   |---|---|---|
-   | Overall | 0.2024 [0.2000, 0.2047] | 19,820 |
-   | Regular Season | 0.2021 | 18,550 |
-   | Playoffs | 0.2062 | 1,257 |
-   | Strong fav (≥65%) | 0.1717 | 11,291 |
-   | Moderate fav (55–65%) | 0.2404 | 5,970 |
-   | Near coin-flip (<55%) | 0.2491 | 2,559 |
+**Key results (19,820 games, 2008–2022):**
 
-2. **Draft the Academic Report:** Write the final report explaining our methodology, Brier Score/Log Loss results, and calibration findings. Use the four generated plots as figures.
-3. **Create Presentation Slides:** Pull the visual insights into the final presentation. **Crucial:** Ensure we include a dedicated slide on the Polymarket API data-purging limitation as a core engineering finding.
+| Segment | Brier Score | N |
+|---|---|---|
+| Overall | 0.2024 [0.2000, 0.2047] | 19,820 |
+| Regular Season | 0.2021 | 18,550 |
+| Playoffs | 0.2062 | 1,257 |
+| Strong fav (≥65%) | 0.1717 | 11,291 |
+| Moderate fav (55–65%) | 0.2404 | 5,970 |
+| Near coin-flip (<55%) | 0.2491 | 2,559 |
 
 ---
 
@@ -131,23 +117,25 @@ The data science layer is fully implemented. `evaluation.py` and `quant_logic.py
 ```
 nba_probability_forecasting/
 ├── main.py                          # Pipeline entry: load Kaggle, Gamma, fuzzy match, merge_asof, no-vig, save master_events.csv
+├── test_pipeline.py                 # Fuzzy match diagnostic test (optional)
+├── analysis.ipynb                   # Single notebook: all EDA + calibration visualizations (pre-rendered)
+├── requirements.txt                 # Pinned third-party dependencies
 ├── data/
-│   ├── raw/                         # Kaggle CSV (e.g. nba_2008-2025.csv); raw Polymarket cache
+│   ├── raw/                         # Kaggle CSV (nba_2008-2025.csv)
 │   └── processed/                   # master_events.csv; 4 calibration PNGs; audit outputs
 ├── src/
 │   ├── extraction/
 │   │   └── gamma_api.py             # Polymarket Gamma API paginated fetch
 │   ├── matching/
-│   │   └── fuzzy_match.py           # rapidfuzz + alias table, audit_matches
+│   │   └── fuzzy_match.py           # rapidfuzz + 30-team alias table, audit_matches
 │   ├── processing/
 │   │   ├── quant_logic.py           # No-vig: American odds → fair probabilities (vectorized)
-│   │   └── evaluation.py            # Phase 3: Brier CI, segmented calibration, seasonal trend (4 plots)
-│   └── archive_polymarket_research/  # Archived Polymarket scripts (see README there)
+│   │   └── evaluation.py            # Brier CI, segmented calibration, seasonal trend (4 plots)
+│   └── archive_polymarket_research/  # Archived Polymarket research scripts (see README there)
 ├── scripts/
-│   ├── audit_quant_logic.py          # No-vig math audit (6 test cases vs. eGamingHQ ground truth)
-│   ├── eda_phase2.ipynb             # Phase 2 EDA notebook (Kaggle raw: vig, missing odds, distributions)
+│   ├── audit_quant_logic.py         # No-vig math audit (6 test cases vs. eGamingHQ ground truth)
 │   └── diagnose_merge.py            # Pre-merge diagnostics for merge_asof
-└── README.md                        # This handoff document
+└── README.md
 ```
 
 ---
@@ -186,13 +174,18 @@ nba_probability_forecasting/
    python scripts/audit_quant_logic.py
    ```
 
-4. **Phase 2 EDA notebook** (vig distributions, missing odds, data coverage)  
-   Open `scripts/eda_phase2.ipynb` in Jupyter/VS Code and run all cells.  
-   Expects `data/raw/nba_2008-2025.csv` to be present.
+4. **Full analysis notebook** (all visualizations — EDA + calibration plots)
+   Open `analysis.ipynb` in Jupyter/VS Code and run all cells.
+   Expects `data/raw/nba_2008-2025.csv` to be present. All outputs are pre-rendered so the notebook can also be viewed without re-running.
 
-5. **Merge diagnostics (optional)**  
+5. **Merge diagnostics (optional)**
    ```bash
    python scripts/diagnose_merge.py
+   ```
+
+6. **Fuzzy match diagnostics (optional)**
+   ```bash
+   python test_pipeline.py
    ```
 
 ---
@@ -205,7 +198,7 @@ Install with:
 pip install -r requirements.txt
 ```
 
-Typical needs: `pandas`, `numpy`, `matplotlib`, `requests`, `rapidfuzz`. See `requirements.txt` for versions.
+Third-party packages: `pandas`, `numpy`, `matplotlib`, `requests`, `rapidfuzz`, `pytz`. Minimum versions are pinned in `requirements.txt`. Tested with Python 3.10+.
 
 ---
 ## Team Roles
