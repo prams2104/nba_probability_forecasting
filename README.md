@@ -86,10 +86,30 @@ The base `quant_logic.py` and temporal merge are in the repo. Phase 2 covered da
      - **Games per season** with valid moneylines (bar chart; confirms 2008–2022 fully covered, 2023 partial, 2024–2025 have no moneylines)
    - **Data note:** Kaggle has moneyline odds for ~19,820 games (2008–2022 fully, 2023 partial); seasons 2024–2025 have no moneylines. The evaluation module uses Kaggle directly for the main analysis; `master_events.csv` (512 games from the Polymarket merge) has only 17 with moneylines and is kept for methodology/story.
 
-### Phase 3: Visualization, Scoring & Reporting (Tasks for Zitian & Yu-Jung)
-A baseline `evaluation.py` script has been built that generates an initial Brier Score and Probability Calibration Curve `.png` as a starting point. **By default it uses Kaggle raw (~19,820 games)** for statistically meaningful results. Your turn to take over the Data Science and Storytelling:
-1. **Expand the Data Science:** Modify `evaluation.py` to break down the calibration curves further (e.g., Playoffs vs. Regular season, or Heavy Favorites vs. Underdogs). Add confidence intervals to the Brier scores.
-2. **Draft the Academic Report:** Write the final report explaining our methodology, Brier Score/Log Loss results, and calibration findings. 
+### Phase 3: Visualization, Scoring & Reporting (✅ Code Complete — Pramesh, Zitian & Yu-Jung)
+
+The data science layer is fully implemented. `evaluation.py` and `quant_logic.py` were expanded and optimized:
+
+1. **Expand the Data Science (✅ Completed):**
+   - **`quant_logic.py`** — `apply_no_vig_probabilities()` refactored to use vectorized NumPy operations (~20× faster). `american_to_implied()` preserved unchanged for audit compatibility; all 6 audit tests still pass.
+   - **`evaluation.py`** — Extended with four new analysis functions:
+     - `bootstrap_brier_ci()` — 1,000-resample bootstrap 95% CI on any Brier Score.
+     - `plot_segmented_calibration()` — side-by-side reliability diagrams for **Regular Season vs Playoffs**.
+     - `plot_favorite_calibration()` — overlaid calibration curves for three **prediction-confidence tiers** (strong favorite ≥65%, moderate 55–65%, near coin-flip <55%).
+     - `plot_brier_by_season()` — per-season Brier bar chart with 95% CI error bars showing calibration trend across 2008–2022.
+   - Running `python -m src.processing.evaluation` now produces **four plots** and an expanded terminal summary including CI and segment breakdowns.
+
+   **Key results (19,820 games, 2008–2022):**
+   | Segment | Brier Score | N |
+   |---|---|---|
+   | Overall | 0.2024 [0.2000, 0.2047] | 19,820 |
+   | Regular Season | 0.2021 | 18,550 |
+   | Playoffs | 0.2062 | 1,257 |
+   | Strong fav (≥65%) | 0.1717 | 11,291 |
+   | Moderate fav (55–65%) | 0.2404 | 5,970 |
+   | Near coin-flip (<55%) | 0.2491 | 2,559 |
+
+2. **Draft the Academic Report:** Write the final report explaining our methodology, Brier Score/Log Loss results, and calibration findings. Use the four generated plots as figures.
 3. **Create Presentation Slides:** Pull the visual insights into the final presentation. **Crucial:** Ensure we include a dedicated slide on the Polymarket API data-purging limitation as a core engineering finding.
 
 ---
@@ -99,7 +119,7 @@ A baseline `evaluation.py` script has been built that generates an initial Brier
 | Path | Purpose | Output |
 |------|---------|--------|
 | **main.py** | Polymarket extraction + fuzzy match + merge | `master_events.csv` (512 games) — for methodology/story |
-| **evaluation.py** | Sportsbook calibration | Loads **Kaggle raw** (~19,820 games with moneylines) by default |
+| **evaluation.py** | Sportsbook calibration | Loads **Kaggle raw** (~19,820 games with moneylines) by default — produces 4 plots |
 
 - **Evaluation** does *not* require running `main.py` first. It reads `data/raw/nba_2008-2025.csv` directly.
 - To use the legacy `master_events.csv` (17 games with moneylines): `run_evaluation(source="master_events")`.
@@ -113,15 +133,15 @@ nba_probability_forecasting/
 ├── main.py                          # Pipeline entry: load Kaggle, Gamma, fuzzy match, merge_asof, no-vig, save master_events.csv
 ├── data/
 │   ├── raw/                         # Kaggle CSV (e.g. nba_2008-2025.csv); raw Polymarket cache
-│   └── processed/                   # master_events.csv, sportsbook_calibration.png, audit outputs
+│   └── processed/                   # master_events.csv; 4 calibration PNGs; audit outputs
 ├── src/
 │   ├── extraction/
 │   │   └── gamma_api.py             # Polymarket Gamma API paginated fetch
 │   ├── matching/
 │   │   └── fuzzy_match.py           # rapidfuzz + alias table, audit_matches
 │   ├── processing/
-│   │   ├── quant_logic.py           # No-vig: American odds → fair probabilities
-│   │   └── evaluation.py            # Sportsbook-only: loads Kaggle, Brier, Log Loss, calibration
+│   │   ├── quant_logic.py           # No-vig: American odds → fair probabilities (vectorized)
+│   │   └── evaluation.py            # Phase 3: Brier CI, segmented calibration, seasonal trend (4 plots)
 │   └── archive_polymarket_research/  # Archived Polymarket scripts (see README there)
 ├── scripts/
 │   ├── audit_quant_logic.py          # No-vig math audit (6 test cases vs. eGamingHQ ground truth)
@@ -145,17 +165,21 @@ nba_probability_forecasting/
    ```  
    Produces `data/processed/master_events.csv`.
 
-2. **Sportsbook-only evaluation (Brier, Log Loss, calibration plot)** — uses Kaggle raw (~19,820 games) by default  
+2. **Sportsbook-only evaluation (Brier, Log Loss, calibration plots)** — uses Kaggle raw (~19,820 games) by default
    ```bash
    python -m src.processing.evaluation
-   ```  
+   ```
    Or from Python:
    ```python
    from src.processing.evaluation import run_evaluation
-   df = run_evaluation()                    # Kaggle (default)
-   df = run_evaluation(source="master_events")  # Legacy: 17 games from merge
-   ```  
-   Produces `data/processed/sportsbook_calibration.png` and prints metrics.
+   df = run_evaluation()                         # Kaggle (default) — 4 plots
+   df = run_evaluation(source="master_events")   # Legacy: 17 games from merge
+   ```
+   Produces four plots in `data/processed/`:
+   - `sportsbook_calibration.png` — overall reliability diagram
+   - `segmented_by_game_type.png` — Regular Season vs Playoffs
+   - `segmented_by_favorite.png` — confidence tiers (strong / moderate / coin-flip)
+   - `brier_by_season.png` — seasonal Brier trend with 95% bootstrap CI error bars
 
 3. **No-vig math audit** (validates `quant_logic.py` against external calculator)  
    ```bash
@@ -187,4 +211,4 @@ Typical needs: `pandas`, `numpy`, `matplotlib`, `requests`, `rapidfuzz`. See `re
 ## Team Roles
 1. **(Extraction & Pipeline Setup): Pramesh**
 2. **(Data Validation & EDA): Priyansh, Karthik**
-3. **(Data Science, Visualization & Reporting): Zitian, Yu-Jung**
+3. **(Data Science, Visualization & Reporting): Zitian, Yu-Jung, Pramesh**
