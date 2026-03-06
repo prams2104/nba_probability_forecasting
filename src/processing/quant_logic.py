@@ -21,7 +21,10 @@ def apply_no_vig_probabilities(df):
     """
     Calculates the 'Fair' probability by removing the sportsbook overround.
     Uses vectorized numpy operations (~20x faster than row-by-row .apply()).
+
+    Operates on an internal copy so the caller's DataFrame is never mutated.
     """
+    df = df.copy()
     home = pd.to_numeric(df['home_odds'], errors='coerce').values
     away = pd.to_numeric(df['away_odds'], errors='coerce').values
 

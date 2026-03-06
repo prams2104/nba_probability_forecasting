@@ -1,3 +1,10 @@
+"""
+NBA team name normalization and fuzzy event matching.
+
+Provides a 30-team alias table, cleaning utilities, and fuzzy matching
+to align Polymarket event strings with Kaggle sportsbook event names.
+"""
+
 import pandas as pd
 import re
 from rapidfuzz import fuzz, process
@@ -37,6 +44,19 @@ ALIAS_TABLE = {
 }
 
 def clean_team_name(name):
+    """
+    Normalize a raw team name string to a canonical full-name form.
+
+    Lowercases, strips punctuation, removes common filler words (fc, city, team),
+    then resolves the result against ALIAS_TABLE. If no alias matches, returns
+    the cleaned string unchanged.
+
+    Args:
+        name: Raw team name (abbreviation, nickname, or full name).
+
+    Returns:
+        Canonical full team name (e.g. "min" -> "minnesota timberwolves").
+    """
     name = str(name).lower()
     name = re.sub(r'[^\w\s]', '', name).strip()
     name = re.sub(r'\b(fc|city|team)\b', '', name).strip()
@@ -48,6 +68,19 @@ def clean_team_name(name):
     return name
 
 def clean_event_name(event_string):
+    """
+    Normalize a raw matchup string into a canonical, order-independent event key.
+
+    Splits on ' vs ' or '-', cleans each team name via clean_team_name, then
+    sorts the two names alphabetically so "A vs B" and "B vs A" produce the
+    same key. Falls back to clean_team_name if no separator is found.
+
+    Args:
+        event_string: Raw event title (e.g. "Timberwolves vs. OKC Thunder").
+
+    Returns:
+        Canonical event key (e.g. "minnesota timberwolves vs oklahoma city thunder").
+    """
     event_string = str(event_string).lower()
     
     # FIX: Normalize punctuation BEFORE splitting so "vs." becomes "vs"
@@ -68,6 +101,21 @@ def clean_event_name(event_string):
     return event_string
 
 def match_teams(poly_event, sportsbook_events_list):
+    """
+    Fuzzy-match a Polymarket event title to the closest sportsbook event name.
+
+    Cleans both strings, then uses rapidfuzz token_sort_ratio to find the best
+    match in sportsbook_events_list. Returns the original (uncleaned) sportsbook
+    event name and its similarity score.
+
+    Args:
+        poly_event: Raw Polymarket event title string.
+        sportsbook_events_list: List of raw sportsbook event name strings.
+
+    Returns:
+        Tuple of (matched_sportsbook_event, score). Returns (None, 0) if no
+        match is found.
+    """
     poly_clean = clean_event_name(poly_event)
     sportsbook_clean_list = [clean_event_name(t) for t in sportsbook_events_list]
     
@@ -78,9 +126,25 @@ def match_teams(poly_event, sportsbook_events_list):
         return sportsbook_events_list[index], score
     return None, 0
 
-def audit_matches(df, score_col='matching_score'):
+def audit_matches(df, score_col='matching_score', output_dir='data/processed'):
+    """
+    Generate audit outputs for manual review of fuzzy match quality.
+
+    Writes two CSV files to output_dir:
+    - manual_review_flagged.csv: rows with score in [80, 95) — borderline matches
+      that warrant human inspection.
+    - 5_percent_audit_log.csv: a random 5% sample of all matches for spot-checking.
+
+    Args:
+        df: DataFrame containing match results with a similarity score column.
+        score_col: Name of the column holding similarity scores (default 'matching_score').
+        output_dir: Directory to write audit CSVs (default 'data/processed').
+
+    Returns:
+        Tuple of (manual_review_df, audit_sample_df).
+    """
     manual_review_df = df[(df[score_col] >= 80) & (df[score_col] < 95)]
-    manual_review_df.to_csv('data/processed/manual_review_flagged.csv', index=False)
+    manual_review_df.to_csv(f'{output_dir}/manual_review_flagged.csv', index=False)
     audit_sample = df.sample(frac=0.05, random_state=42)
-    audit_sample.to_csv('data/processed/5_percent_audit_log.csv', index=False)
+    audit_sample.to_csv(f'{output_dir}/5_percent_audit_log.csv', index=False)
     return manual_review_df, audit_sample

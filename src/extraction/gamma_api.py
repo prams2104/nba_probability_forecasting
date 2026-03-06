@@ -1,3 +1,11 @@
+"""
+Polymarket Gamma API extraction module.
+
+Fetches closed NBA events from the Polymarket Gamma API with pagination,
+local caching, and a hard offset failsafe. Results are stored as a
+JSON cache to avoid redundant API calls on re-runs.
+"""
+
 import requests
 import pandas as pd
 import time
@@ -8,6 +16,23 @@ import os
 logger = logging.getLogger(__name__)
 
 def fetch_polymarket_history_paginated(use_start_date_for_timestamp: bool = True):
+    """
+    Fetch closed NBA events from the Polymarket Gamma API with pagination and caching.
+
+    On first run, paginates through the Gamma API (tag=NBA, closed=true) collecting
+    events from 2022 onwards, then saves a local JSON cache. Subsequent runs load
+    from the cache instead of hitting the API.
+
+    A hard failsafe stops pagination at offset 50,000. An early-exit stops as soon
+    as all events on a page pre-date MIN_YEAR (2022).
+
+    Args:
+        use_start_date_for_timestamp: Unused parameter retained for API compatibility.
+
+    Returns:
+        DataFrame with columns: event_id, poly_event_name, timestamp, polymarket_prob.
+        Returns an empty DataFrame if no events are found.
+    """
     logger.info("Starting production Polymarket Gamma API extraction...")
     cache_path = 'data/raw/raw_poly_cache.json'
     
