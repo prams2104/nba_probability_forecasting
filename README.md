@@ -87,6 +87,20 @@ Expanded the evaluation module into a full calibration analysis and produced all
 - **Seasonal trend** (`evaluation.py`) — per-season Brier Score bar chart with CI error bars across 2008–2022.
 - **Notebook** (`analysis.ipynb`) — single pre-rendered notebook containing all EDA and calibration visualizations.
 
+#### Phase 3 Standalone Module (`phase3_evaluation/`)
+
+A clean, self-contained evaluation package with separated concerns:
+
+| File | Purpose |
+|------|---------|
+| `metrics.py` | Pure computation: Brier Score, Log Loss, calibration bins, bootstrap CI, Brier-by-bucket |
+| `plots.py` | 5 visualization functions (no metric computation, imports from `metrics.py`) |
+| `run_evaluation.py` | Entry point: loads data, computes metrics, prints summary, generates all plots |
+| `Phase3_Analysis.ipynb` | Presentation-ready notebook with step-by-step analysis and embedded plots |
+| `output/` | 5 generated PNG plots ready for slides |
+
+Run with: `python -m phase3_evaluation.run_evaluation`
+
 **Key results (19,820 games, 2008–2022):**
 
 | Segment | Brier Score | N |
@@ -123,6 +137,13 @@ nba_probability_forecasting/
 ├── data/
 │   ├── raw/                         # Kaggle CSV (nba_2008-2025.csv)
 │   └── processed/                   # master_events.csv; 4 calibration PNGs; audit outputs
+├── phase3_evaluation/               # Phase 3 standalone evaluation module (Zitian & Yu-Jung)
+│   ├── __init__.py
+│   ├── metrics.py                   # Core metrics: Brier Score, Log Loss, Calibration, Bootstrap CI
+│   ├── plots.py                     # 5 visualization functions (calibration, buckets, segments, seasons)
+│   ├── run_evaluation.py            # One-command entry point for full Phase 3 analysis
+│   ├── Phase3_Analysis.ipynb        # Presentation-ready Jupyter notebook
+│   └── output/                      # Generated plots (5 PNGs)
 ├── src/
 │   ├── extraction/
 │   │   └── gamma_api.py             # Polymarket Gamma API paginated fetch
@@ -178,12 +199,27 @@ nba_probability_forecasting/
    Open `analysis.ipynb` in Jupyter/VS Code and run all cells.
    Expects `data/raw/nba_2008-2025.csv` to be present. All outputs are pre-rendered so the notebook can also be viewed without re-running.
 
-5. **Merge diagnostics (optional)**
+5. **Phase 3 standalone evaluation** (clean self-contained module)
+   ```bash
+   python -m phase3_evaluation.run_evaluation
+   ```
+   Or open the notebook:
+   ```bash
+   jupyter notebook phase3_evaluation/Phase3_Analysis.ipynb
+   ```
+   Produces five plots in `phase3_evaluation/output/`:
+   - `calibration_curve.png` — overall reliability diagram with confidence distribution
+   - `brier_by_bucket.png` — Brier Score per probability bucket (with random baseline)
+   - `segmented_by_game_type.png` — Regular Season vs Playoffs calibration
+   - `segmented_by_confidence.png` — confidence tiers (strong / moderate / coin-flip)
+   - `brier_by_season.png` — seasonal Brier trend with 95% bootstrap CI
+
+6. **Merge diagnostics (optional)**
    ```bash
    python scripts/diagnose_merge.py
    ```
 
-6. **Fuzzy match diagnostics (optional)**
+7. **Fuzzy match diagnostics (optional)**
    ```bash
    python test_pipeline.py
    ```
