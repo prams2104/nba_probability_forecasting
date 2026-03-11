@@ -30,7 +30,8 @@ plt.rcParams.update({
     "grid.linestyle": "--",
 })
 
-OUTPUT_DIR = Path(__file__).parent / "output"
+# Two parents up from src/processing/ → project root, then data/processed/
+OUTPUT_DIR = Path(__file__).resolve().parent.parent.parent / "data" / "processed"
 
 
 def _save(fig: plt.Figure, name: str) -> Path:

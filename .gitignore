@@ -1,11 +1,25 @@
-# .gitignore
-venv/
-env/
-.env
+# Python
 __pycache__/
-*.pyc
-data/raw/*
-!data/raw/.gitkeep
-!data/raw/nba_2008-2025.csv
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Environment
+.env
+.venv/
+venv/
+
+# macOS
 .DS_Store
-pipeline_execution.log
+
+# IDE
+.vscode/
+.idea/

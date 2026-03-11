@@ -6,7 +6,7 @@ probabilities, evaluates sportsbook accuracy, and generates all plots.
 
 Usage:
     cd nba_probability_forecasting
-    python -m phase3_evaluation.run_evaluation
+    python -m scripts.run_evaluation
 
 Authors: Zitian & Yu-Jung (Phase 3)
 """
@@ -22,13 +22,13 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.processing.quant_logic import apply_no_vig_probabilities
-from phase3_evaluation.metrics import (
+from src.processing.metrics import (
     brier_score,
     log_loss,
     calibration_bins,
     bootstrap_brier_ci,
 )
-from phase3_evaluation.plots import (
+from src.processing.plots import (
     plot_calibration_curve,
     plot_brier_by_bucket,
     plot_segmented_calibration,
@@ -173,7 +173,7 @@ def main():
     else:
         print("  [5/5] Skipped (insufficient season data)")
 
-    print("\nAll plots saved to phase3_evaluation/output/")
+    print("\nAll plots saved to data/processed/")
 
 
 if __name__ == "__main__":
